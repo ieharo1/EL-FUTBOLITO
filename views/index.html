@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="El Futbolito - Tu tienda de camisetas de fútbol auténticas">
+    <title>El Futbolito ⚽ | Camisetas de Fútbol Originales</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Exo+2:wght@400;600;800&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    
+    <!-- HEADER ÉPICO -->
+    <header class="main-header">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="top-info">
+                            <i class="bi bi-lightning-charge-fill"></i>
+                            <span>Envío GRATIS en compras mayores a $50</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <div class="top-social">
+                            <a href="#"><i class="bi bi-facebook"></i></a>
+                            <a href="#"><i class="bi bi-instagram"></i></a>
+                            <a href="#"><i class="bi bi-twitter-x"></i></a>
+                            <a href="#"><i class="bi bi-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <div class="logo">
+                        <i class="bi bi-shield-fill-check"></i>
+                        <div class="logo-text">
+                            <span class="logo-main">EL FUTBOLITO</span>
+                            <span class="logo-sub">CAMISETAS ORIGINALES</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#inicio">INICIO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#productos">PRODUCTOS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#equipos">EQUIPOS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#ofertas">OFERTAS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contacto">CONTACTO</a>
+                        </li>
+                    </ul>
+                    
+                    <div class="nav-actions">
+                        <button class="btn-icon" data-bs-toggle="modal" data-bs-target="#searchModal">
+                            <i class="bi bi-search"></i>
+                        </button>
+                        <button class="btn-icon position-relative" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas">
+                            <i class="bi bi-bag-fill"></i>
+                            <span class="cart-badge">0</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <div class="hero-bg"></div>
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="hero-content" data-aos="fade-right">
+                            <span class="hero-badge">TEMPORADA 2024/25</span>
+                            <h1 class="hero-title">
+                                VISTE LOS<br>
+                                <span class="highlight">COLORES</span><br>
+                                DE TU PASIÓN
+                            </h1>
+                            <p class="hero-description">
+                                Las camisetas oficiales de los mejores equipos del mundo. 
+                                Calidad garantizada, envíos seguros.
+                            </p>
+                            <div class="hero-buttons">
+                                <a href="#productos" class="btn btn-hero btn-primary">
+                                    <span>VER COLECCIÓN</span>
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+                                <a href="#ofertas" class="btn btn-hero btn-outline">
+                                    <span>OFERTAS ESPECIALES</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="hero-image" data-aos="fade-left">
+                            <div class="floating-card card-1">⚽</div>
+                            <div class="floating-card card-2">🏆</div>
+                            <div class="floating-card card-3">⭐</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-truck"></i>
+                        </div>
+                        <h3>Envío Gratis</h3>
+                        <p>En pedidos mayores a $50</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h3>100% Original</h3>
+                        <p>Productos auténticos garantizados</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-arrow-repeat"></i>
+                        </div>
+                        <h3>Devoluciones</h3>
+                        <p>30 días para cambios</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-credit-card"></i>
+                        </div>
+                        <h3>Pago Seguro</h3>
+                        <p>Múltiples métodos de pago</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="productos" class="products-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-badge">COLECCIÓN 2024/25</span>
+                <h2 class="section-title">
+                    NUESTRAS <span class="highlight">CAMISETAS</span>
+                </h2>
+                <p class="section-description">
+                    Descubre las últimas camisetas de los equipos más importantes del mundo
+                </p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="filter-buttons text-center mb-5">
+                <button class="btn-filter active" data-filter="all">TODAS</button>
+                <button class="btn-filter" data-filter="liga">LA LIGA</button>
+                <button class="btn-filter" data-filter="premier">PREMIER</button>
+                <button class="btn-filter" data-filter="serie-a">SERIE A</button>
+                <button class="btn-filter" data-filter="bundesliga">BUNDESLIGA</button>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="row g-4" id="productsGrid">
+                <!-- Los productos se cargarán dinámicamente con JavaScript -->
+            </div>
+
+            <div class="text-center mt-5">
+                <button class="btn btn-hero btn-primary" id="loadMore">
+                    <span>VER MÁS PRODUCTOS</span>
+                    <i class="bi bi-arrow-down"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-card">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="newsletter-content">
+                            <i class="bi bi-envelope-heart-fill"></i>
+                            <h2>¡ÚNETE A NUESTRO EQUIPO!</h2>
+                            <p>Recibe ofertas exclusivas, nuevos lanzamientos y descuentos especiales</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <form class="newsletter-form" id="newsletterForm">
+                            <div class="input-group">
+                                <input type="email" class="form-control" placeholder="tu@email.com" required>
+                                <button type="submit" class="btn btn-primary">
+                                    <span>SUSCRIBIRME</span>
+                                    <i class="bi bi-send-fill"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="footer-brand">
+                        <div class="logo">
+                            <i class="bi bi-shield-fill-check"></i>
+                            <div class="logo-text">
+                                <span class="logo-main">EL FUTBOLITO</span>
+                                <span class="logo-sub">CAMISETAS ORIGINALES</span>
+                            </div>
+                        </div>
+                        <p class="footer-description">
+                            Tu tienda de confianza para las mejores camisetas de fútbol. 
+                            Calidad, autenticidad y pasión en cada producto.
+                        </p>
+                        <div class="footer-social">
+                            <a href="https://facebook.com" target="_blank" class="social-btn">
+                                <i class="bi bi-facebook"></i>
+                            </a>
+                            <a href="https://instagram.com" target="_blank" class="social-btn">
+                                <i class="bi bi-instagram"></i>
+                            </a>
+                            <a href="https://twitter.com" target="_blank" class="social-btn">
+                                <i class="bi bi-twitter-x"></i>
+                            </a>
+                            <a href="https://youtube.com" target="_blank" class="social-btn">
+                                <i class="bi bi-youtube"></i>
+                            </a>
+                            <a href="https://tiktok.com" target="_blank" class="social-btn">
+                                <i class="bi bi-tiktok"></i>
+                            </a>
+                            <a href="https://wa.me/1234567890" target="_blank" class="social-btn whatsapp">
+                                <i class="bi bi-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-4">
+                    <div class="footer-links">
+                        <h3>TIENDA</h3>
+                        <ul>
+                            <li><a href="#productos">Productos</a></li>
+                            <li><a href="#ofertas">Ofertas</a></li>
+                            <li><a href="#equipos">Equipos</a></li>
+                            <li><a href="#novedades">Novedades</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-4">
+                    <div class="footer-links">
+                        <h3>INFORMACIÓN</h3>
+                        <ul>
+                            <li><a href="#about">Nosotros</a></li>
+                            <li><a href="#envios">Envíos</a></li>
+                            <li><a href="#devoluciones">Devoluciones</a></li>
+                            <li><a href="#faq">Preguntas</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-4">
+                    <div class="footer-links">
+                        <h3>SOPORTE</h3>
+                        <ul>
+                            <li><a href="#contacto">Contacto</a></li>
+                            <li><a href="#guia">Guía de Tallas</a></li>
+                            <li><a href="#pagos">Métodos de Pago</a></li>
+                            <li><a href="#seguimiento">Seguimiento</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-2">
+                    <div class="footer-links">
+                        <h3>LEGAL</h3>
+                        <ul>
+                            <li><a href="#privacidad">Privacidad</a></li>
+                            <li><a href="#terminos">Términos</a></li>
+                            <li><a href="#cookies">Cookies</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <p class="copyright">
+                            © 2024 El Futbolito. Todos los derechos reservados.
+                        </p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <div class="payment-methods">
+                            <i class="bi bi-credit-card-fill"></i>
+                            <i class="bi bi-paypal"></i>
+                            <span>Pago 100% Seguro</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Offcanvas -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">
+                <i class="bi bi-bag-fill"></i> TU CARRITO
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="empty-cart text-center py-5">
+                <i class="bi bi-bag-x" style="font-size: 4rem; color: #ddd;"></i>
+                <p class="mt-3">Tu carrito está vacío</p>
+                <a href="#productos" class="btn btn-primary mt-3" data-bs-dismiss="offcanvas">
+                    IR A COMPRAR
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Modal -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form class="search-form">
+                        <input type="text" class="form-control" placeholder="Buscar camisetas, equipos...">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="/js/main.js"></script>
+
+</body>
+</html>
