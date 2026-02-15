@@ -1,66 +1,80 @@
-# ⚽ EL FUTBOLITO - Tienda de Camisetas de Fútbol
+⚽ EL FUTBOLITO - Tienda de Camisetas de Fútbol
 
-Una tienda online moderna y espectacular para venta de camisetas de equipos de fútbol, construida con las últimas tecnologías web.
+Una tienda online moderna, visualmente impactante y completamente responsive para la venta de camisetas oficiales de equipos de fútbol, desarrollada con tecnologías web actuales y arquitectura escalable basada en Node.js.
 
-## 🚀 Características
+🚀 Características Principales
 
-- **Diseño Moderno**: Interface brutal con gradientes neón y animaciones fluidas
-- **Responsive**: Perfectamente adaptado a todos los dispositivos
-- **Bootstrap 5**: Framework CSS potente y flexible
-- **Node.js + Express**: Backend robusto y escalable
-- **Animaciones CSS**: Efectos visuales impactantes
-- **Carrito de Compras**: Sistema de carrito funcional con localStorage
-- **Filtros Dinámicos**: Filtra productos por liga
-- **Newsletter**: Sistema de suscripción
-- **Redes Sociales**: Integración completa en header y footer
+🎨 Diseño Moderno y Brutal: Interface con gradientes neón, efectos visuales y animaciones fluidas.
 
-## 🛠️ Tecnologías Utilizadas
+📱 100% Responsive: Adaptado a móviles, tablets y escritorio.
 
-- **HTML5**: Estructura semántica moderna
-- **CSS3**: Estilos personalizados con variables CSS
-- **JavaScript ES6+**: Lógica interactiva del lado del cliente
-- **Bootstrap 5**: Framework CSS responsive
-- **Bootstrap Icons**: Iconografía completa
-- **Node.js**: Entorno de ejecución JavaScript
-- **Express**: Framework web minimalista
-- **Google Fonts**: Tipografías premium (Bebas Neue, Exo 2, Montserrat)
+⚡ Bootstrap 5: Framework CSS moderno y flexible.
 
-## 📦 Instalación
+🧠 Node.js + Express: Backend ligero, rápido y escalable.
 
-### Prerrequisitos
-- Node.js (v14 o superior)
-- npm (v6 o superior)
+🛒 Carrito de Compras: Persistente mediante localStorage.
 
-### Pasos de Instalación
+🔍 Filtros Dinámicos: Filtrado por liga.
 
-1. **Navega al directorio del proyecto**
-```bash
+💌 Newsletter: Sistema de suscripción funcional.
+
+🌐 Redes Sociales Integradas: Header y footer completos.
+
+🔔 Sistema de Notificaciones: Feedback visual interactivo.
+
+❤️ Wishlist: Sistema de favoritos.
+
+🛠️ Tecnologías Utilizadas
+
+HTML5 – Estructura semántica moderna
+
+CSS3 – Variables CSS, animaciones y efectos avanzados
+
+JavaScript ES6+ – Lógica interactiva del cliente
+
+Bootstrap 5 – Diseño responsive profesional
+
+Bootstrap Icons – Iconografía moderna
+
+Node.js – Entorno de ejecución
+
+Express.js – Framework backend minimalista
+
+Google Fonts – Bebas Neue, Exo 2, Montserrat
+
+📦 Instalación
+📋 Prerrequisitos
+
+Node.js v14 o superior
+
+npm v6 o superior
+
+🔧 Pasos de Instalación
+
+1️⃣ Clonar el repositorio o ingresar al directorio del proyecto:
+
 cd el-futbolito
-```
 
-2. **Instala las dependencias**
-```bash
+
+2️⃣ Instalar dependencias:
+
 npm install
-```
 
-3. **Inicia el servidor**
-```bash
+
+3️⃣ Iniciar el servidor:
+
 npm start
-```
 
-4. **Abre tu navegador**
-```
+
+4️⃣ Abrir en navegador:
+
 http://localhost:3000
-```
 
-## 🔧 Scripts Disponibles
-
-- `npm start` - Inicia el servidor en modo producción
-- `npm run dev` - Inicia el servidor con nodemon (recarga automática)
-
-## 📁 Estructura del Proyecto
-
-```
+🔧 Scripts Disponibles
+Script	Descripción
+npm start	Inicia el servidor en modo producción
+npm run dev	Inicia el servidor con nodemon (recarga automática)
+📁 Estructura del Proyecto
 el-futbolito/
 ├── public/
 │   ├── css/
@@ -69,62 +83,84 @@ el-futbolito/
 │   │   └── main.js             # JavaScript principal
 │   └── images/                 # Imágenes del sitio
 ├── views/
-│   └── index.html              # Página principal
-├── server.js                   # Servidor Node.js/Express
-├── package.json                # Dependencias del proyecto
-└── README.md                   # Este archivo
-```
+│   └── index.html
+├── server.js
+├── package.json
+└── README.md
 
-## 🎨 Características de Diseño
+🎨 Diseño y Experiencia Visual
+🔝 Header
 
-### Header
-- **Top Bar**: Información de envío y redes sociales
-- **Navbar**: Navegación responsive con logo animado
-- **Hero Section**: Sección principal impactante con llamadas a la acción
+Top Bar con información de envío y redes sociales
 
-### Productos
-- **Cards Animadas**: Efectos hover y transiciones suaves
-- **Filtros**: Sistema de filtrado por liga
-- **Badges**: Etiquetas "NUEVO" y ofertas especiales
-- **Quick Actions**: Vista rápida y añadir a favoritos
+Navbar responsive con logo animado
 
-### Footer
-- **Información Completa**: Enlaces organizados por categorías
-- **Redes Sociales**: 
-  - Facebook
-  - Instagram
-  - Twitter/X
-  - YouTube
-  - TikTok
-  - WhatsApp
-- **Newsletter**: Formulario de suscripción integrado
+Hero Section con llamada a la acción
 
-## 🌈 Paleta de Colores
+🛍 Productos
 
-- **Primary**: `#00ff88` (Verde neón)
-- **Secondary**: `#ff0066` (Rosa vibrante)
-- **Dark**: `#0a0e27` (Azul oscuro)
-- **Accent**: `#ffd700` (Dorado)
-- **Gradientes**: Mezclas de neón y cyan
+Cards animadas con efectos hover
 
-## 🎯 Funcionalidades JavaScript
+Badges dinámicos (“NUEVO”, “OFERTA”)
 
-- ✅ Carrito de compras con localStorage
-- ✅ Filtrado dinámico de productos
-- ✅ Sistema de notificaciones
-- ✅ Animaciones al hacer scroll
-- ✅ Smooth scroll en navegación
-- ✅ API REST para productos
-- ✅ Formulario de newsletter
-- ✅ Wishlist (favoritos)
+Filtros por liga
 
-## 🔌 API Endpoints
+Botones de acción rápida
 
-### GET `/api/productos`
-Obtiene la lista completa de productos disponibles.
+Añadir al carrito y favoritos
 
-**Respuesta:**
-```json
+🔻 Footer
+
+Enlaces organizados por categorías
+
+Redes sociales integradas:
+
+Facebook
+
+Instagram
+
+Twitter/X
+
+YouTube
+
+TikTok
+
+WhatsApp
+
+Formulario de newsletter
+
+🌈 Paleta de Colores
+Tipo	Color
+Primary	#00ff88 (Verde neón)
+Secondary	#ff0066 (Rosa vibrante)
+Dark	#0a0e27 (Azul oscuro profundo)
+Accent	#ffd700 (Dorado)
+Gradientes	Combinaciones neón + cyan
+🎯 Funcionalidades JavaScript
+
+✅ Carrito persistente (localStorage)
+
+✅ Filtro dinámico por liga
+
+✅ Animaciones al hacer scroll
+
+✅ Smooth scroll
+
+✅ Notificaciones visuales
+
+✅ Wishlist
+
+✅ API REST básica
+
+✅ Newsletter funcional
+
+🔌 API REST
+GET /api/productos
+
+Devuelve la lista completa de camisetas disponibles.
+
+Ejemplo de respuesta:
+
 [
   {
     "id": 1,
@@ -145,40 +181,45 @@ Para desplegar en producción:
 ```bash
 export PORT=3000
 export NODE_ENV=production
-```
 
-2. **Inicia el servidor**
-```bash
+
+2️⃣ Ejecutar:
+
 npm start
 ```
 
 ## 📱 Responsive Design
 
-El sitio está completamente optimizado para:
-- 📱 Mobile (320px - 767px)
-- 📱 Tablet (768px - 991px)
-- 💻 Desktop (992px+)
-- 🖥️ Large Desktop (1200px+)
+Optimizado para:
 
-## 🎉 Características Futuras
+📱 Mobile (320px – 767px)
 
-- [ ] Sistema de login/registro
-- [ ] Pasarela de pago integrada
-- [ ] Panel de administración
-- [ ] Sistema de reviews y calificaciones
-- [ ] Comparador de productos
-- [ ] Integración con redes sociales
-- [ ] Chat en vivo
-- [ ] Multi-idioma
+📱 Tablet (768px – 991px)
 
-## 📞 Contacto
+💻 Desktop (992px+)
 
-Para más información sobre El Futbolito:
-- 🌐 Web: www.elfutbolito.com
-- 📧 Email: info@elfutbolito.com
-- 📱 WhatsApp: +1234567890
+🖥️ Large Desktop (1200px+)
 
-## 📄 Licencia
+🔮 Roadmap / Mejoras Futuras
+
+ Sistema de autenticación (Login / Registro)
+
+ Pasarela de pago (Stripe / PayPal)
+
+ Panel administrativo
+
+ Sistema de reviews
+
+ Comparador de productos
+
+ Chat en vivo
+
+ Multi-idioma
+
+ Integración con base de datos (MongoDB / PostgreSQL)
+
+
+📄 Licencia
 
 Este proyecto está bajo la Licencia ISC.
 
