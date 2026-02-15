@@ -98,36 +98,63 @@
         <!-- Hero Section -->
         <div class="hero-section">
             <div class="hero-bg"></div>
+            <div class="hero-particles"></div>
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-lg-6">
-                        <div class="hero-content" data-aos="fade-right">
-                            <span class="hero-badge">TEMPORADA 2024/25</span>
-                            <h1 class="hero-title">
+                    <div class="col-lg-7">
+                        <div class="hero-content">
+                            <span class="hero-badge animate-fade-in">TEMPORADA 2024/25</span>
+                            <h1 class="hero-title animate-slide-up">
                                 VISTE LOS<br>
                                 <span class="highlight">COLORES</span><br>
                                 DE TU PASIÓN
                             </h1>
-                            <p class="hero-description">
-                                Las camisetas oficiales de los mejores equipos del mundo. 
-                                Calidad garantizada, envíos seguros.
+                            <p class="hero-description animate-slide-up delay-1">
+                                Las camisetas oficiales de los equipos más grandes de Europa y el mundo. 
+                                Real Madrid, Barcelona, Manchester City, PSG y más. ¡Calidad garantizada!
                             </p>
-                            <div class="hero-buttons">
+                            <div class="hero-stats animate-slide-up delay-2">
+                                <div class="stat-item">
+                                    <div class="stat-number">24+</div>
+                                    <div class="stat-label">Equipos</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">100%</div>
+                                    <div class="stat-label">Originales</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">48h</div>
+                                    <div class="stat-label">Envío Rápido</div>
+                                </div>
+                            </div>
+                            <div class="hero-buttons animate-slide-up delay-3">
                                 <a href="#productos" class="btn btn-hero btn-primary">
                                     <span>VER COLECCIÓN</span>
                                     <i class="bi bi-arrow-right"></i>
                                 </a>
-                                <a href="#ofertas" class="btn btn-hero btn-outline">
-                                    <span>OFERTAS ESPECIALES</span>
+                                <a href="#productos" class="btn btn-hero btn-outline">
+                                    <i class="bi bi-search"></i>
+                                    <span>BUSCAR EQUIPO</span>
                                 </a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="hero-image" data-aos="fade-left">
-                            <div class="floating-card card-1">⚽</div>
-                            <div class="floating-card card-2">🏆</div>
-                            <div class="floating-card card-3">⭐</div>
+                    <div class="col-lg-5">
+                        <div class="hero-image animate-fade-in delay-2">
+                            <div class="hero-jersey-showcase">
+                                <div class="jersey-card jersey-1">
+                                    <img src="https://images.unsplash.com/photo-1522778526097-ce0a22ceb253?w=300&h=300&fit=crop" alt="Real Madrid">
+                                    <div class="jersey-label">Real Madrid</div>
+                                </div>
+                                <div class="jersey-card jersey-2">
+                                    <img src="https://images.unsplash.com/photo-1551958219-acbc608c6377?w=300&h=300&fit=crop" alt="Barcelona">
+                                    <div class="jersey-label">Barcelona</div>
+                                </div>
+                                <div class="jersey-card jersey-3">
+                                    <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=300&h=300&fit=crop" alt="Man City">
+                                    <div class="jersey-label">Man City</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -194,11 +221,12 @@
 
             <!-- Filter Buttons -->
             <div class="filter-buttons text-center mb-5">
-                <button class="btn-filter active" data-filter="all">TODAS</button>
-                <button class="btn-filter" data-filter="liga">LA LIGA</button>
-                <button class="btn-filter" data-filter="premier">PREMIER</button>
-                <button class="btn-filter" data-filter="serie-a">SERIE A</button>
-                <button class="btn-filter" data-filter="bundesliga">BUNDESLIGA</button>
+                <button class="btn-filter active" data-filter="all">TODOS</button>
+                <button class="btn-filter" data-filter="La Liga">LA LIGA</button>
+                <button class="btn-filter" data-filter="Premier League">PREMIER</button>
+                <button class="btn-filter" data-filter="Serie A">SERIE A</button>
+                <button class="btn-filter" data-filter="Bundesliga">BUNDESLIGA</button>
+                <button class="btn-filter" data-filter="Ligue 1">LIGUE 1</button>
             </div>
 
             <!-- Products Grid -->
@@ -452,15 +480,45 @@
 
     <!-- Search Modal -->
     <div class="modal fade" id="searchModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content search-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-search"></i> BUSCAR CAMISETAS
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
                 <div class="modal-body">
-                    <form class="search-form">
-                        <input type="text" class="form-control" placeholder="Buscar camisetas, equipos...">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="bi bi-search"></i>
-                        </button>
+                    <form class="search-form" id="searchForm" onsubmit="return false;">
+                        <div class="input-group">
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="searchInput"
+                                placeholder="Busca por equipo, liga o país..." 
+                                autocomplete="off">
+                            <button type="button" class="btn btn-primary" onclick="performSearch()">
+                                <i class="bi bi-search"></i>
+                                <span>BUSCAR</span>
+                            </button>
+                        </div>
                     </form>
+                    
+                    <div id="searchResults" class="search-results mt-4">
+                        <div class="search-suggestions">
+                            <h6>Búsquedas populares:</h6>
+                            <div class="suggestion-tags">
+                                <span class="suggestion-tag" onclick="quickSearch('Real Madrid')">Real Madrid</span>
+                                <span class="suggestion-tag" onclick="quickSearch('Barcelona')">Barcelona</span>
+                                <span class="suggestion-tag" onclick="quickSearch('Manchester')">Manchester</span>
+                                <span class="suggestion-tag" onclick="quickSearch('PSG')">PSG</span>
+                                <span class="suggestion-tag" onclick="quickSearch('Bayern')">Bayern</span>
+                                <span class="suggestion-tag" onclick="quickSearch('Liverpool')">Liverpool</span>
+                                <span class="suggestion-tag" onclick="quickSearch('Juventus')">Juventus</span>
+                                <span class="suggestion-tag" onclick="quickSearch('Premier League')">Premier League</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

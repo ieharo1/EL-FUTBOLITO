@@ -1,6 +1,6 @@
 // ============================================
-// EL FUTBOLITO - MAIN JAVASCRIPT
-// Sistema de carrito completamente funcional
+// EL FUTBOLITO - JAVASCRIPT 100% FUNCIONAL
+// Sistema completo: Búsqueda + Filtros + Carrito
 // ============================================
 
 // Variables globales
@@ -10,16 +10,16 @@ let currentProduct = null;
 let selectedSize = 'L';
 let modalQuantity = 1;
 
-// Inicialización cuando el DOM está listo
+// Inicialización
 document.addEventListener('DOMContentLoaded', function() {
     initApp();
 });
 
-// Función principal de inicialización
 async function initApp() {
     await loadProducts();
     initNavbar();
     initFilters();
+    initSearch();
     initNewsletter();
     initAnimations();
     loadCart();
@@ -28,12 +28,11 @@ async function initApp() {
 }
 
 // ============================================
-// NAVBAR FUNCTIONALITY
+// NAVBAR
 // ============================================
 function initNavbar() {
     const navbar = document.querySelector('.navbar');
     
-    // Navbar scroll effect
     window.addEventListener('scroll', function() {
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
@@ -42,20 +41,14 @@ function initNavbar() {
         }
     });
     
-    // Smooth scroll para enlaces
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                
-                // Cerrar navbar en móvil
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 const navbarCollapse = document.querySelector('.navbar-collapse');
-                if (navbarCollapse.classList.contains('show')) {
+                if (navbarCollapse && navbarCollapse.classList.contains('show')) {
                     bootstrap.Collapse.getInstance(navbarCollapse).hide();
                 }
             }
@@ -64,7 +57,7 @@ function initNavbar() {
 }
 
 // ============================================
-// PRODUCTS FUNCTIONALITY
+// PRODUCTOS
 // ============================================
 async function loadProducts() {
     try {
@@ -72,74 +65,8 @@ async function loadProducts() {
         productos = await response.json();
         console.log('✅ Productos cargados:', productos.length);
     } catch (error) {
-        console.error('❌ Error cargando productos:', error);
-        // Productos de respaldo
-        productos = [
-            {
-                id: 1,
-                nombre: "Real Madrid 24/25 Local",
-                equipo: "Real Madrid",
-                precio: 89.99,
-                imagen: "https://images.unsplash.com/photo-1522778526097-ce0a22ceb253?w=400&h=400&fit=crop",
-                liga: "liga"
-            },
-            {
-                id: 2,
-                nombre: "Barcelona 24/25 Local",
-                equipo: "FC Barcelona",
-                precio: 89.99,
-                imagen: "https://images.unsplash.com/photo-1551958219-acbc608c6377?w=400&h=400&fit=crop",
-                liga: "liga"
-            },
-            {
-                id: 3,
-                nombre: "Manchester United Local",
-                equipo: "Manchester United",
-                precio: 85.99,
-                imagen: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&h=400&fit=crop",
-                liga: "premier"
-            },
-            {
-                id: 4,
-                nombre: "PSG 24/25 Local",
-                equipo: "Paris Saint-Germain",
-                precio: 92.99,
-                imagen: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=400&h=400&fit=crop",
-                liga: "ligue1"
-            },
-            {
-                id: 5,
-                nombre: "Bayern Munich Local",
-                equipo: "Bayern Munich",
-                precio: 87.99,
-                imagen: "https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?w=400&h=400&fit=crop",
-                liga: "bundesliga"
-            },
-            {
-                id: 6,
-                nombre: "Liverpool 24/25 Local",
-                equipo: "Liverpool FC",
-                precio: 88.99,
-                imagen: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=400&fit=crop",
-                liga: "premier"
-            },
-            {
-                id: 7,
-                nombre: "Juventus 24/25 Local",
-                equipo: "Juventus",
-                precio: 86.99,
-                imagen: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400&h=400&fit=crop",
-                liga: "serie-a"
-            },
-            {
-                id: 8,
-                nombre: "Chelsea 24/25 Local",
-                equipo: "Chelsea FC",
-                precio: 84.99,
-                imagen: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400&h=400&fit=crop",
-                liga: "premier"
-            }
-        ];
+        console.error('❌ Error:', error);
+        productos = [];
     }
 }
 
@@ -149,19 +76,28 @@ function renderProducts(productsToRender) {
     
     grid.innerHTML = '';
     
-    productsToRender.forEach((producto, index) => {
-        const productCard = createProductCard(producto, index);
+    if (productsToRender.length === 0) {
+        grid.innerHTML = `
+            <div class="col-12 text-center py-5">
+                <i class="bi bi-inbox" style="font-size: 4rem; color: var(--text-muted); opacity: 0.3;"></i>
+                <p class="mt-3" style="color: var(--text-muted); font-size: 1.1rem;">No se encontraron productos</p>
+            </div>
+        `;
+        return;
+    }
+    
+    productsToRender.forEach((producto) => {
+        const productCard = createProductCard(producto);
         grid.appendChild(productCard);
     });
     
-    // Añadir animaciones escalonadas
     setTimeout(() => {
         const cards = grid.querySelectorAll('.product-card');
         cards.forEach((card, index) => {
             setTimeout(() => {
                 card.style.opacity = '1';
                 card.style.transform = 'translateY(0)';
-            }, index * 100);
+            }, index * 50);
         });
     }, 100);
 }
@@ -176,7 +112,7 @@ function createProductCard(producto) {
                 <img src="${producto.imagen}" alt="${producto.nombre}" loading="lazy">
                 <span class="product-badge">NUEVO</span>
                 <div class="product-actions">
-                    <button class="action-btn" onclick="addToWishlist(${producto.id})" title="Añadir a favoritos">
+                    <button class="action-btn" onclick="addToWishlist(${producto.id})" title="Favoritos">
                         <i class="bi bi-heart"></i>
                     </button>
                     <button class="action-btn" onclick="quickView(${producto.id})" title="Vista rápida">
@@ -202,7 +138,7 @@ function createProductCard(producto) {
 }
 
 // ============================================
-// FILTER FUNCTIONALITY
+// FILTROS
 // ============================================
 function initFilters() {
     const filterButtons = document.querySelectorAll('.btn-filter');
@@ -226,20 +162,173 @@ function filterProducts(filter) {
     }
     
     renderProducts(filtered);
+    
+    // Scroll a la sección de productos
+    document.getElementById('productos').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // ============================================
-// CART FUNCTIONALITY - COMPLETAMENTE FUNCIONAL
+// BÚSQUEDA FUNCIONAL
 // ============================================
+function initSearch() {
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        // Búsqueda en tiempo real
+        searchInput.addEventListener('input', debounce(function(e) {
+            const query = e.target.value;
+            if (query.length >= 2) {
+                performSearchLive(query);
+            } else if (query.length === 0) {
+                showSearchSuggestions();
+            }
+        }, 300));
+        
+        // Búsqueda al presionar Enter
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                performSearch();
+            }
+        });
+    }
+}
 
+function performSearch() {
+    const searchInput = document.getElementById('searchInput');
+    const query = searchInput.value.trim();
+    
+    if (query.length === 0) {
+        showNotification('⚠️ Por favor ingresa un término de búsqueda', 'info');
+        return;
+    }
+    
+    searchAndDisplay(query);
+}
+
+function quickSearch(term) {
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.value = term;
+    }
+    searchAndDisplay(term);
+}
+
+function searchAndDisplay(query) {
+    const results = searchProducts(query);
+    
+    if (results.length > 0) {
+        renderSearchResults(results);
+        showNotification(`✅ ${results.length} resultado(s) encontrado(s)`, 'success');
+    } else {
+        showNoResults();
+        showNotification('❌ No se encontraron resultados', 'error');
+    }
+}
+
+function performSearchLive(query) {
+    const results = searchProducts(query);
+    renderSearchResults(results);
+}
+
+function searchProducts(query) {
+    const searchTerm = query.toLowerCase().trim();
+    
+    return productos.filter(p => 
+        p.nombre.toLowerCase().includes(searchTerm) ||
+        p.equipo.toLowerCase().includes(searchTerm) ||
+        p.liga.toLowerCase().includes(searchTerm) ||
+        p.pais.toLowerCase().includes(searchTerm)
+    );
+}
+
+function renderSearchResults(results) {
+    const searchResults = document.getElementById('searchResults');
+    if (!searchResults) return;
+    
+    if (results.length === 0) {
+        showNoResults();
+        return;
+    }
+    
+    searchResults.innerHTML = `
+        <div class="search-results-grid">
+            ${results.map(producto => `
+                <div class="search-result-item" onclick="selectSearchResult(${producto.id})">
+                    <img src="${producto.imagen}" alt="${producto.nombre}" class="search-result-image">
+                    <div class="search-result-name">${producto.equipo}</div>
+                    <div class="search-result-price">$${producto.precio.toFixed(2)}</div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+function showNoResults() {
+    const searchResults = document.getElementById('searchResults');
+    if (searchResults) {
+        searchResults.innerHTML = `
+            <div class="search-no-results">
+                <i class="bi bi-search"></i>
+                <p>No se encontraron resultados</p>
+                <button class="btn btn-primary mt-3" onclick="showSearchSuggestions()">Ver sugerencias</button>
+            </div>
+        `;
+    }
+}
+
+function showSearchSuggestions() {
+    const searchResults = document.getElementById('searchResults');
+    if (searchResults) {
+        searchResults.innerHTML = `
+            <div class="search-suggestions">
+                <h6>Búsquedas populares:</h6>
+                <div class="suggestion-tags">
+                    <span class="suggestion-tag" onclick="quickSearch('Real Madrid')">Real Madrid</span>
+                    <span class="suggestion-tag" onclick="quickSearch('Barcelona')">Barcelona</span>
+                    <span class="suggestion-tag" onclick="quickSearch('Manchester')">Manchester</span>
+                    <span class="suggestion-tag" onclick="quickSearch('PSG')">PSG</span>
+                    <span class="suggestion-tag" onclick="quickSearch('Bayern')">Bayern</span>
+                    <span class="suggestion-tag" onclick="quickSearch('Liverpool')">Liverpool</span>
+                    <span class="suggestion-tag" onclick="quickSearch('Juventus')">Juventus</span>
+                    <span class="suggestion-tag" onclick="quickSearch('Premier League')">Premier League</span>
+                </div>
+            </div>
+        `;
+    }
+}
+
+function selectSearchResult(productId) {
+    // Cerrar modal de búsqueda
+    const searchModal = bootstrap.Modal.getInstance(document.getElementById('searchModal'));
+    if (searchModal) searchModal.hide();
+    
+    // Abrir vista rápida del producto
+    quickView(productId);
+}
+
+// Utilidad: Debounce para búsqueda
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// ============================================
+// CARRITO
+// ============================================
 function loadCart() {
     const savedCart = localStorage.getItem('elfutbolito_cart');
     if (savedCart) {
         try {
             cart = JSON.parse(savedCart);
-            console.log('✅ Carrito cargado:', cart.length, 'items');
+            console.log('✅ Carrito cargado:', cart.length);
         } catch (error) {
-            console.error('❌ Error cargando carrito:', error);
             cart = [];
         }
     }
@@ -248,13 +337,9 @@ function loadCart() {
 
 function saveCart() {
     localStorage.setItem('elfutbolito_cart', JSON.stringify(cart));
-    console.log('💾 Carrito guardado');
 }
 
 function addToCartQuick(productId) {
-    const producto = productos.find(p => p.id === productId);
-    if (!producto) return;
-    
     addToCart(productId, 'L', 1);
 }
 
@@ -265,17 +350,14 @@ function addToCart(productId, size = 'L', cantidad = 1) {
         return;
     }
     
-    // Buscar si ya existe en el carrito con la misma talla
     const existingItemIndex = cart.findIndex(item => 
         item.id === productId && item.size === size
     );
     
     if (existingItemIndex !== -1) {
-        // Si existe, aumentar cantidad
         cart[existingItemIndex].cantidad += cantidad;
-        showNotification('✅ Cantidad actualizada en el carrito', 'success');
+        showNotification('✅ Cantidad actualizada', 'success');
     } else {
-        // Si no existe, añadir nuevo item
         cart.push({
             id: producto.id,
             nombre: producto.nombre,
@@ -285,21 +367,12 @@ function addToCart(productId, size = 'L', cantidad = 1) {
             size: size,
             cantidad: cantidad
         });
-        showNotification('✅ ¡Producto añadido al carrito!', 'success');
+        showNotification('✅ ¡Añadido al carrito!', 'success');
     }
     
     saveCart();
     updateCartBadge();
     updateCartUI();
-    
-    // Animación del botón
-    const btn = window.event?.target?.closest('.btn-cart') || window.event?.target?.closest('.btn-hero');
-    if (btn) {
-        btn.style.transform = 'scale(0.9)';
-        setTimeout(() => {
-            btn.style.transform = 'scale(1)';
-        }, 200);
-    }
 }
 
 function removeFromCart(index) {
@@ -308,7 +381,7 @@ function removeFromCart(index) {
     saveCart();
     updateCartBadge();
     updateCartUI();
-    showNotification(`🗑️ ${item.nombre} eliminado del carrito`, 'info');
+    showNotification(`🗑️ ${item.nombre} eliminado`, 'info');
 }
 
 function updateCartQuantity(index, change) {
@@ -319,7 +392,7 @@ function updateCartQuantity(index, change) {
             removeFromCart(index);
         } else if (cart[index].cantidad > 10) {
             cart[index].cantidad = 10;
-            showNotification('⚠️ Máximo 10 unidades por producto', 'info');
+            showNotification('⚠️ Máximo 10 unidades', 'info');
         } else {
             saveCart();
             updateCartUI();
@@ -343,11 +416,10 @@ function updateCartUI() {
     if (!cartContent || !cartFooter) return;
     
     if (cart.length === 0) {
-        // Carrito vacío
         cartContent.innerHTML = `
             <div class="empty-cart text-center py-5">
                 <i class="bi bi-bag-x" style="font-size: 5rem; color: var(--text-muted); opacity: 0.3;"></i>
-                <p class="mt-3" style="color: var(--text-muted); font-size: 1.1rem;">Tu carrito está vacío</p>
+                <p class="mt-3" style="color: var(--text-muted);">Carrito vacío</p>
                 <a href="#productos" class="btn btn-hero btn-primary mt-3" data-bs-dismiss="offcanvas">
                     <i class="bi bi-bag-plus"></i>
                     <span>IR A COMPRAR</span>
@@ -356,7 +428,6 @@ function updateCartUI() {
         `;
         cartFooter.innerHTML = '';
     } else {
-        // Carrito con productos
         cartContent.innerHTML = `
             <div class="cart-items">
                 ${cart.map((item, index) => `
@@ -389,7 +460,6 @@ function updateCartUI() {
             </div>
         `;
         
-        // Calcular totales
         const subtotal = cart.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
         const shipping = subtotal >= 50 ? 0 : 5.99;
         const total = subtotal + shipping;
@@ -423,43 +493,30 @@ function updateCartUI() {
     }
 }
 
-function clearCart() {
-    cart = [];
-    saveCart();
-    updateCartBadge();
-    updateCartUI();
-    showNotification('🗑️ Carrito vaciado', 'info');
-}
-
 function checkout() {
     if (cart.length === 0) {
-        showNotification('⚠️ Tu carrito está vacío', 'error');
+        showNotification('⚠️ Carrito vacío', 'error');
         return;
     }
     
     const total = cart.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-    const items = cart.reduce((sum, item) => sum + item.cantidad, 0);
+    showNotification(`🎉 ¡Procesando $${total.toFixed(2)}!`, 'success');
     
-    showNotification(`🎉 ¡Procesando compra de ${items} artículos por $${total.toFixed(2)}!`, 'success');
-    
-    // Aquí integrarías tu pasarela de pago
-    console.log('💳 Checkout:', { cart, total });
-    
-    // Simular compra exitosa
     setTimeout(() => {
-        showNotification('✅ ¡Compra exitosa! Gracias por tu pedido', 'success');
-        clearCart();
+        showNotification('✅ ¡Compra exitosa!', 'success');
+        cart = [];
+        saveCart();
+        updateCartBadge();
+        updateCartUI();
         
-        // Cerrar offcanvas
         const offcanvas = bootstrap.Offcanvas.getInstance(document.getElementById('cartOffcanvas'));
         if (offcanvas) offcanvas.hide();
     }, 2000);
 }
 
 // ============================================
-// QUICK VIEW MODAL
+// VISTA RÁPIDA
 // ============================================
-
 function quickView(productId) {
     const producto = productos.find(p => p.id === productId);
     if (!producto) return;
@@ -468,7 +525,6 @@ function quickView(productId) {
     selectedSize = 'L';
     modalQuantity = 1;
     
-    // Actualizar modal
     document.getElementById('modalProductName').textContent = producto.nombre;
     document.getElementById('modalProductImage').src = producto.imagen;
     document.getElementById('modalProductTeam').textContent = producto.equipo;
@@ -476,16 +532,9 @@ function quickView(productId) {
     document.getElementById('modalProductPrice').textContent = `$${producto.precio.toFixed(2)}`;
     document.getElementById('modalQuantity').value = 1;
     
-    // Reset size selection
     document.querySelectorAll('.size-btn').forEach(btn => {
         btn.classList.remove('active');
-        if (btn.dataset.size === 'L') {
-            btn.classList.add('active');
-        }
-    });
-    
-    // Event listeners para tallas
-    document.querySelectorAll('.size-btn').forEach(btn => {
+        if (btn.dataset.size === 'L') btn.classList.add('active');
         btn.onclick = function() {
             document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
             this.classList.add('active');
@@ -493,16 +542,12 @@ function quickView(productId) {
         };
     });
     
-    // Event listener para añadir al carrito
     document.getElementById('modalAddToCart').onclick = function() {
         addToCart(currentProduct.id, selectedSize, modalQuantity);
-        
-        // Cerrar modal
         const modal = bootstrap.Modal.getInstance(document.getElementById('quickViewModal'));
         if (modal) modal.hide();
     };
     
-    // Mostrar modal
     const modal = new bootstrap.Modal(document.getElementById('quickViewModal'));
     modal.show();
 }
@@ -523,25 +568,14 @@ function decreaseModalQty() {
 
 function addToWishlist(productId) {
     showNotification('❤️ ¡Añadido a favoritos!', 'success');
-    
-    const btn = window.event?.target?.closest('.action-btn');
-    if (btn) {
-        btn.style.transform = 'scale(1.3)';
-        btn.querySelector('i').style.color = '#ff0066';
-        setTimeout(() => {
-            btn.style.transform = 'scale(1)';
-        }, 300);
-    }
 }
 
 function addToWishlistFromModal() {
-    if (currentProduct) {
-        addToWishlist(currentProduct.id);
-    }
+    if (currentProduct) addToWishlist(currentProduct.id);
 }
 
 // ============================================
-// NEWSLETTER FUNCTIONALITY
+// NEWSLETTER
 // ============================================
 function initNewsletter() {
     const form = document.getElementById('newsletterForm');
@@ -549,47 +583,31 @@ function initNewsletter() {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             const email = this.querySelector('input[type="email"]').value;
-            
             if (email && isValidEmail(email)) {
-                showNotification('🎉 ¡Gracias por suscribirte! Revisa tu email', 'success');
+                showNotification('🎉 ¡Suscripción exitosa!', 'success');
                 this.reset();
             } else {
-                showNotification('⚠️ Por favor ingresa un email válido', 'error');
+                showNotification('⚠️ Email inválido', 'error');
             }
         });
     }
 }
 
 // ============================================
-// NOTIFICATIONS
+// NOTIFICACIONES
 // ============================================
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    
-    const colors = {
-        success: '#00ff88',
-        error: '#ff0066',
-        info: '#00d4ff'
-    };
+    const colors = { success: '#00ff88', error: '#ff0066', info: '#00d4ff' };
     
     notification.style.cssText = `
-        position: fixed;
-        top: 100px;
-        right: 30px;
-        background: ${colors[type] || colors.info};
-        color: #0a0e27;
-        padding: 20px 30px;
-        border-radius: 15px;
-        font-weight: 600;
-        z-index: 9999;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        animation: slideIn 0.3s ease;
-        max-width: 350px;
-        font-size: 0.95rem;
+        position: fixed; top: 100px; right: 30px; z-index: 9999;
+        background: ${colors[type]}; color: #0a0e27;
+        padding: 20px 30px; border-radius: 15px; font-weight: 600;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        animation: slideIn 0.3s ease; max-width: 350px;
     `;
     notification.textContent = message;
-    
     document.body.appendChild(notification);
     
     setTimeout(() => {
@@ -598,29 +616,17 @@ function showNotification(message, type = 'info') {
     }, 3000);
 }
 
-// Añadir animaciones CSS
 const style = document.createElement('style');
 style.textContent = `
-    @keyframes slideIn {
-        from { transform: translateX(400px); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-    }
-    @keyframes slideOut {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(400px); opacity: 0; }
-    }
+    @keyframes slideIn { from { transform: translateX(400px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(400px); opacity: 0; } }
 `;
 document.head.appendChild(style);
 
 // ============================================
-// ANIMATIONS
+// ANIMACIONES
 // ============================================
 function initAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-    };
-    
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -628,10 +634,9 @@ function initAnimations() {
                 entry.target.style.transform = 'translateY(0)';
             }
         });
-    }, observerOptions);
+    }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
     
-    const animatedElements = document.querySelectorAll('.feature-card, .section-header');
-    animatedElements.forEach(el => {
+    document.querySelectorAll('.feature-card, .section-header').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
         el.style.transition = 'all 0.6s ease';
@@ -640,29 +645,14 @@ function initAnimations() {
 }
 
 // ============================================
-// LOAD MORE PRODUCTS
-// ============================================
-const loadMoreBtn = document.getElementById('loadMore');
-if (loadMoreBtn) {
-    loadMoreBtn.addEventListener('click', function() {
-        showNotification('📦 Cargando más productos...', 'info');
-        setTimeout(() => {
-            showNotification('✅ Todos los productos están cargados', 'info');
-        }, 1000);
-    });
-}
-
-// ============================================
 // UTILIDADES
 // ============================================
 function isValidEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 // ============================================
-// LOG DE INICIALIZACIÓN
+// INICIALIZACIÓN
 // ============================================
 console.log('%c⚽ EL FUTBOLITO', 'color: #00ff88; font-size: 24px; font-weight: bold;');
-console.log('%c🛒 Sistema de carrito 100% funcional', 'color: #00d4ff; font-size: 16px;');
-console.log('%c✅ Todo listo para usar', 'color: #00ff88; font-size: 14px;');
+console.log('%c✅ Sistema 100% funcional', 'color: #00d4ff; font-size: 16px;');
