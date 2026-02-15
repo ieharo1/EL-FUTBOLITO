@@ -72,19 +72,28 @@
                             <a class="nav-link" href="#productos">PRODUCTOS</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#equipos">EQUIPOS</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="#ofertas">OFERTAS</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="#nosotros">NOSOTROS</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="#contacto">CONTACTO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin" style="color: var(--secondary);">
+                                <i class="bi bi-shield-lock-fill"></i> ADMIN
+                            </a>
                         </li>
                     </ul>
                     
                     <div class="nav-actions">
                         <button class="btn-icon" data-bs-toggle="modal" data-bs-target="#searchModal">
                             <i class="bi bi-search"></i>
+                        </button>
+                        <button class="btn-icon position-relative" data-bs-toggle="offcanvas" data-bs-target="#wishlistOffcanvas">
+                            <i class="bi bi-heart-fill"></i>
+                            <span class="wishlist-badge">0</span>
                         </button>
                         <button class="btn-icon position-relative" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas">
                             <i class="bi bi-bag-fill"></i>
@@ -206,6 +215,70 @@
         </div>
     </section>
 
+    <!-- Flash Sale Section -->
+    <section class="flash-sale-section">
+        <div class="container">
+            <div class="flash-sale-banner">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="flash-content">
+                            <span class="flash-badge">⚡ OFERTA FLASH</span>
+                            <h2 class="flash-title">¡HASTA 30% DE DESCUENTO!</h2>
+                            <p class="flash-description">
+                                Aprovecha nuestras ofertas especiales en camisetas seleccionadas. 
+                                ¡Tiempo limitado!
+                            </p>
+                            <a href="#ofertas" class="btn btn-hero btn-primary">
+                                <i class="bi bi-lightning-charge-fill"></i>
+                                <span>VER OFERTAS</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="countdown-timer">
+                            <div class="timer-label">⏰ LA OFERTA TERMINA EN:</div>
+                            <div class="timer-display">
+                                <div class="timer-box">
+                                    <div class="timer-value" id="hours">00</div>
+                                    <div class="timer-label-small">HORAS</div>
+                                </div>
+                                <div class="timer-separator">:</div>
+                                <div class="timer-box">
+                                    <div class="timer-value" id="minutes">00</div>
+                                    <div class="timer-label-small">MINUTOS</div>
+                                </div>
+                                <div class="timer-separator">:</div>
+                                <div class="timer-box">
+                                    <div class="timer-value" id="seconds">00</div>
+                                    <div class="timer-label-small">SEGUNDOS</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Sellers Section -->
+    <section class="bestsellers-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-badge">🏆 TOP VENTAS</span>
+                <h2 class="section-title">
+                    LOS <span class="highlight">MÁS VENDIDOS</span>
+                </h2>
+                <p class="section-description">
+                    Las camisetas favoritas de nuestros clientes
+                </p>
+            </div>
+
+            <div class="row g-4" id="bestSellersGrid">
+                <!-- Se carga con JavaScript -->
+            </div>
+        </div>
+    </section>
+
     <!-- Products Section -->
     <section id="productos" class="products-section">
         <div class="container">
@@ -267,6 +340,144 @@
                         </form>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="nosotros" class="about-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="section-header">
+                        <span class="section-badge">⚽ SOBRE NOSOTROS</span>
+                        <h2 class="section-title">
+                            PASIÓN POR EL <span class="highlight">FÚTBOL</span>
+                        </h2>
+                        <p class="section-description">
+                            Somos tu tienda de confianza para las mejores camisetas de fútbol del mundo.
+                        </p>
+                    </div>
+                    <div class="about-content">
+                        <div class="about-item">
+                            <div class="about-icon">
+                                <i class="bi bi-check-circle-fill"></i>
+                            </div>
+                            <div>
+                                <h4>100% Originales</h4>
+                                <p>Todas nuestras camisetas son productos oficiales y auténticos.</p>
+                            </div>
+                        </div>
+                        <div class="about-item">
+                            <div class="about-icon">
+                                <i class="bi bi-award-fill"></i>
+                            </div>
+                            <div>
+                                <h4>Calidad Garantizada</h4>
+                                <p>Trabajamos solo con los mejores proveedores del mercado.</p>
+                            </div>
+                        </div>
+                        <div class="about-item">
+                            <div class="about-icon">
+                                <i class="bi bi-heart-fill"></i>
+                            </div>
+                            <div>
+                                <h4>Atención al Cliente</h4>
+                                <p>Estamos aquí para ayudarte en lo que necesites, 24/7.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-stats">
+                        <div class="stat-box">
+                            <div class="stat-number">10,000+</div>
+                            <div class="stat-label">Clientes Felices</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">32+</div>
+                            <div class="stat-label">Equipos Disponibles</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">5</div>
+                            <div class="stat-label">Ligas Principales</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Soporte</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="contact-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-badge">📞 CONTACTO</span>
+                <h2 class="section-title">
+                    ¿NECESITAS <span class="highlight">AYUDA?</span>
+                </h2>
+                <p class="section-description">
+                    Estamos aquí para responder todas tus preguntas
+                </p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="bi bi-geo-alt-fill"></i>
+                        </div>
+                        <h3>Ubicación</h3>
+                        <p>Quito, Ecuador<br>Av. Principal 123</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="bi bi-envelope-fill"></i>
+                        </div>
+                        <h3>Email</h3>
+                        <p>info@elfutbolito.com<br>ventas@elfutbolito.com</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="bi bi-whatsapp"></i>
+                        </div>
+                        <h3>WhatsApp</h3>
+                        <p>+593 99 123 4567<br>Respuesta inmediata</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-wrapper">
+                <form class="contact-form" id="contactForm">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="Tu Nombre" required>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="email" class="form-control" placeholder="Tu Email" required>
+                        </div>
+                        <div class="col-12">
+                            <input type="text" class="form-control" placeholder="Asunto" required>
+                        </div>
+                        <div class="col-12">
+                            <textarea class="form-control" rows="5" placeholder="Tu Mensaje" required></textarea>
+                        </div>
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-hero btn-primary">
+                                <i class="bi bi-send-fill"></i>
+                                <span>ENVIAR MENSAJE</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </section>
@@ -529,6 +740,57 @@
     
     <!-- Custom JS -->
     <script src="/js/main.js"></script>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="scroll-to-top">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <!-- Welcome Modal (First Visit) -->
+    <div class="modal fade" id="welcomeModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content welcome-modal">
+                <button type="button" class="btn-close btn-close-white welcome-close" data-bs-dismiss="modal"></button>
+                <div class="modal-body">
+                    <div class="welcome-content">
+                        <div class="welcome-icon">
+                            <i class="bi bi-gift-fill"></i>
+                        </div>
+                        <h2 class="welcome-title">¡BIENVENIDO A<br>EL FUTBOLITO!</h2>
+                        <p class="welcome-description">
+                            Obtén <strong>15% de descuento</strong> en tu primera compra
+                        </p>
+                        <div class="welcome-code">
+                            <div class="code-label">USA EL CÓDIGO:</div>
+                            <div class="code-value">FUTBOL15</div>
+                        </div>
+                        <button class="btn btn-hero btn-primary w-100 mt-4" data-bs-dismiss="modal">
+                            <i class="bi bi-bag-heart-fill"></i>
+                            <span>¡EMPEZAR A COMPRAR!</span>
+                        </button>
+                        <div class="welcome-terms">
+                            *Válido solo para nuevos clientes. Compra mínima de $50
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wishlist Offcanvas -->
+    <div class="offcanvas offcanvas-end cart-offcanvas" tabindex="-1" id="wishlistOffcanvas">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">
+                <i class="bi bi-heart-fill"></i> FAVORITOS
+            </h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div id="wishlistContent">
+                <!-- Se carga con JavaScript -->
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

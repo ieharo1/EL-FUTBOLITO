@@ -14,10 +14,14 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
 
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'admin.html'));
+});
+
 // API endpoint para productos (ejemplo)
 app.get('/api/productos', (req, res) => {
   const productos = [
-    // LA LIGA
+    // LA LIGA - España
     {
       id: 1,
       nombre: "Real Madrid 24/25 Local",
@@ -48,9 +52,30 @@ app.get('/api/productos', (req, res) => {
       imagen: "https://images.unsplash.com/photo-1614632537239-e3a5fd7c1f4e?w=400&h=400&fit=crop",
       destacado: false
     },
-    // PREMIER LEAGUE
     {
       id: 4,
+      nombre: "Real Madrid Visitante",
+      equipo: "Real Madrid",
+      liga: "La Liga",
+      pais: "España",
+      precio: 89.99,
+      imagen: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&h=400&fit=crop",
+      destacado: false
+    },
+    {
+      id: 5,
+      nombre: "Sevilla FC Local",
+      equipo: "Sevilla FC",
+      liga: "La Liga",
+      pais: "España",
+      precio: 79.99,
+      imagen: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=400&h=400&fit=crop",
+      destacado: false
+    },
+    
+    // PREMIER LEAGUE - Inglaterra
+    {
+      id: 6,
       nombre: "Manchester City Local",
       equipo: "Manchester City",
       liga: "Premier League",
@@ -60,7 +85,7 @@ app.get('/api/productos', (req, res) => {
       destacado: true
     },
     {
-      id: 5,
+      id: 7,
       nombre: "Liverpool 24/25 Local",
       equipo: "Liverpool FC",
       liga: "Premier League",
@@ -70,7 +95,7 @@ app.get('/api/productos', (req, res) => {
       destacado: true
     },
     {
-      id: 6,
+      id: 8,
       nombre: "Manchester United Local",
       equipo: "Manchester United",
       liga: "Premier League",
@@ -80,7 +105,7 @@ app.get('/api/productos', (req, res) => {
       destacado: true
     },
     {
-      id: 7,
+      id: 9,
       nombre: "Chelsea 24/25 Local",
       equipo: "Chelsea FC",
       liga: "Premier League",
@@ -90,7 +115,7 @@ app.get('/api/productos', (req, res) => {
       destacado: false
     },
     {
-      id: 8,
+      id: 10,
       nombre: "Arsenal 24/25 Local",
       equipo: "Arsenal FC",
       liga: "Premier League",
@@ -100,7 +125,7 @@ app.get('/api/productos', (req, res) => {
       destacado: true
     },
     {
-      id: 9,
+      id: 11,
       nombre: "Tottenham Local",
       equipo: "Tottenham Hotspur",
       liga: "Premier League",
@@ -109,9 +134,30 @@ app.get('/api/productos', (req, res) => {
       imagen: "https://images.unsplash.com/photo-1577212017308-2f0cbf5a8a8c?w=400&h=400&fit=crop",
       destacado: false
     },
-    // SERIE A
     {
-      id: 10,
+      id: 12,
+      nombre: "Newcastle United Local",
+      equipo: "Newcastle United",
+      liga: "Premier League",
+      pais: "Inglaterra",
+      precio: 82.99,
+      imagen: "https://images.unsplash.com/photo-1522778526097-ce0a22ceb253?w=400&h=400&fit=crop",
+      destacado: false
+    },
+    {
+      id: 13,
+      nombre: "Aston Villa Local",
+      equipo: "Aston Villa",
+      liga: "Premier League",
+      pais: "Inglaterra",
+      precio: 79.99,
+      imagen: "https://images.unsplash.com/photo-1551958219-acbc608c6377?w=400&h=400&fit=crop",
+      destacado: false
+    },
+    
+    // SERIE A - Italia
+    {
+      id: 14,
       nombre: "Juventus 24/25 Local",
       equipo: "Juventus",
       liga: "Serie A",
@@ -121,7 +167,7 @@ app.get('/api/productos', (req, res) => {
       destacado: true
     },
     {
-      id: 11,
+      id: 15,
       nombre: "AC Milan Local",
       equipo: "AC Milan",
       liga: "Serie A",
@@ -131,7 +177,7 @@ app.get('/api/productos', (req, res) => {
       destacado: true
     },
     {
-      id: 12,
+      id: 16,
       nombre: "Inter Milan Local",
       equipo: "Inter Milan",
       liga: "Serie A",
@@ -141,7 +187,7 @@ app.get('/api/productos', (req, res) => {
       destacado: true
     },
     {
-      id: 13,
+      id: 17,
       nombre: "Napoli 24/25 Local",
       equipo: "SSC Napoli",
       liga: "Serie A",
@@ -150,9 +196,30 @@ app.get('/api/productos', (req, res) => {
       imagen: "https://images.unsplash.com/photo-1517466787929-bc90951d0974?w=400&h=400&fit=crop",
       destacado: false
     },
-    // BUNDESLIGA
     {
-      id: 14,
+      id: 18,
+      nombre: "AS Roma Local",
+      equipo: "AS Roma",
+      liga: "Serie A",
+      pais: "Italia",
+      precio: 82.99,
+      imagen: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&h=400&fit=crop",
+      destacado: false
+    },
+    {
+      id: 19,
+      nombre: "Lazio Local",
+      equipo: "SS Lazio",
+      liga: "Serie A",
+      pais: "Italia",
+      precio: 79.99,
+      imagen: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=400&fit=crop",
+      destacado: false
+    },
+    
+    // BUNDESLIGA - Alemania
+    {
+      id: 20,
       nombre: "Bayern Munich Local",
       equipo: "Bayern Munich",
       liga: "Bundesliga",
@@ -162,7 +229,7 @@ app.get('/api/productos', (req, res) => {
       destacado: true
     },
     {
-      id: 15,
+      id: 21,
       nombre: "Borussia Dortmund Local",
       equipo: "Borussia Dortmund",
       liga: "Bundesliga",
@@ -172,7 +239,7 @@ app.get('/api/productos', (req, res) => {
       destacado: true
     },
     {
-      id: 16,
+      id: 22,
       nombre: "RB Leipzig Local",
       equipo: "RB Leipzig",
       liga: "Bundesliga",
@@ -181,9 +248,20 @@ app.get('/api/productos', (req, res) => {
       imagen: "https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?w=400&h=400&fit=crop",
       destacado: false
     },
-    // LIGUE 1
     {
-      id: 17,
+      id: 23,
+      nombre: "Bayer Leverkusen Local",
+      equipo: "Bayer Leverkusen",
+      liga: "Bundesliga",
+      pais: "Alemania",
+      precio: 78.99,
+      imagen: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400&h=400&fit=crop",
+      destacado: false
+    },
+    
+    // LIGUE 1 - Francia
+    {
+      id: 24,
       nombre: "PSG 24/25 Local",
       equipo: "Paris Saint-Germain",
       liga: "Ligue 1",
@@ -193,7 +271,7 @@ app.get('/api/productos', (req, res) => {
       destacado: true
     },
     {
-      id: 18,
+      id: 25,
       nombre: "Olympique Marseille Local",
       equipo: "Marseille",
       liga: "Ligue 1",
@@ -203,7 +281,7 @@ app.get('/api/productos', (req, res) => {
       destacado: false
     },
     {
-      id: 19,
+      id: 26,
       nombre: "Olympique Lyon Local",
       equipo: "Lyon",
       liga: "Ligue 1",
@@ -212,9 +290,20 @@ app.get('/api/productos', (req, res) => {
       imagen: "https://images.unsplash.com/photo-1526367790999-0150786686a2?w=400&h=400&fit=crop",
       destacado: false
     },
-    // OTROS EQUIPOS IMPORTANTES
     {
-      id: 20,
+      id: 27,
+      nombre: "AS Monaco Local",
+      equipo: "AS Monaco",
+      liga: "Ligue 1",
+      pais: "Francia",
+      precio: 77.99,
+      imagen: "https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?w=400&h=400&fit=crop",
+      destacado: false
+    },
+    
+    // OTROS EQUIPOS EUROPEOS
+    {
+      id: 28,
       nombre: "Ajax Amsterdam Local",
       equipo: "Ajax",
       liga: "Eredivisie",
@@ -224,7 +313,7 @@ app.get('/api/productos', (req, res) => {
       destacado: false
     },
     {
-      id: 21,
+      id: 29,
       nombre: "Benfica Local",
       equipo: "Benfica",
       liga: "Liga Portugal",
@@ -234,7 +323,7 @@ app.get('/api/productos', (req, res) => {
       destacado: false
     },
     {
-      id: 22,
+      id: 30,
       nombre: "Porto Local",
       equipo: "FC Porto",
       liga: "Liga Portugal",
@@ -244,7 +333,7 @@ app.get('/api/productos', (req, res) => {
       destacado: false
     },
     {
-      id: 23,
+      id: 31,
       nombre: "Celtic Local",
       equipo: "Celtic FC",
       liga: "Scottish Premiership",
@@ -254,7 +343,7 @@ app.get('/api/productos', (req, res) => {
       destacado: false
     },
     {
-      id: 24,
+      id: 32,
       nombre: "Galatasaray Local",
       equipo: "Galatasaray",
       liga: "Süper Lig",
@@ -264,6 +353,7 @@ app.get('/api/productos', (req, res) => {
       destacado: false
     }
   ];
+  
   res.json(productos);
 });
 

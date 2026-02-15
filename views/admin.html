@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - El Futbolito</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    
+    <style>
+        .admin-container {
+            min-height: 100vh;
+            background: var(--dark);
+            padding: 40px 0;
+        }
+        
+        .login-card, .admin-panel {
+            background: var(--dark-lighter);
+            border: 2px solid rgba(0, 255, 136, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .admin-panel {
+            max-width: 1200px;
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .login-header i {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .login-header h2 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.5rem;
+            color: var(--primary);
+            letter-spacing: 2px;
+        }
+        
+        .form-control {
+            background: var(--dark);
+            border: 2px solid rgba(0, 255, 136, 0.2);
+            color: var(--text);
+            padding: 12px 20px;
+            border-radius: 10px;
+        }
+        
+        .form-control:focus {
+            background: var(--dark);
+            border-color: var(--primary);
+            color: var(--text);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+        
+        .form-label {
+            color: var(--text);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(0, 255, 136, 0.2);
+        }
+        
+        .admin-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2rem;
+            color: var(--primary);
+            letter-spacing: 2px;
+            margin: 0;
+        }
+        
+        .product-item {
+            background: var(--dark);
+            border: 1px solid rgba(0, 255, 136, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .product-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .product-info {
+            flex: 1;
+        }
+        
+        .product-name {
+            color: var(--text);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .product-price {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .btn-delete {
+            background: var(--secondary);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-delete:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(255, 0, 102, 0.5);
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="admin-container">
+        <div class="container">
+            
+            <!-- Login Form -->
+            <div id="loginForm" class="login-card">
+                <div class="login-header">
+                    <i class="bi bi-shield-lock-fill"></i>
+                    <h2>PANEL DE ADMINISTRACIÓN</h2>
+                    <p style="color: var(--text-muted);">Ingresa tus credenciales</p>
+                </div>
+                
+                <form onsubmit="login(event)">
+                    <div class="mb-3">
+                        <label class="form-label">Usuario</label>
+                        <input type="text" class="form-control" id="username" placeholder="admin" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="password" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-hero btn-primary w-100">
+                        <i class="bi bi-box-arrow-in-right"></i>
+                        <span>INICIAR SESIÓN</span>
+                    </button>
+                    <div class="mt-3 text-center">
+                        <small style="color: var(--text-muted);">Usuario: admin | Contraseña: admin123</small>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Admin Panel -->
+            <div id="adminPanel" class="admin-panel" style="display: none;">
+                <div class="admin-header">
+                    <h1 class="admin-title">
+                        <i class="bi bi-gear-fill"></i> PANEL DE ADMINISTRACIÓN
+                    </h1>
+                    <div>
+                        <a href="/" class="btn btn-hero btn-outline me-2">
+                            <i class="bi bi-house-fill"></i>
+                            <span>IR A TIENDA</span>
+                        </a>
+                        <button onclick="logout()" class="btn btn-hero btn-primary">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span>CERRAR SESIÓN</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Add Product Form -->
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="card" style="background: var(--dark); border: 2px solid rgba(0, 255, 136, 0.2); border-radius: 15px; padding: 25px;">
+                            <h3 style="color: var(--primary); font-family: 'Bebas Neue', cursive; font-size: 1.8rem; margin-bottom: 20px;">
+                                <i class="bi bi-plus-circle-fill"></i> AÑADIR PRODUCTO
+                            </h3>
+                            
+                            <form id="addProductForm" onsubmit="addProduct(event)">
+                                <div class="mb-3">
+                                    <label class="form-label">Nombre del Producto</label>
+                                    <input type="text" class="form-control" id="productName" placeholder="Ej: Real Madrid 24/25 Local" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Equipo</label>
+                                    <input type="text" class="form-control" id="productTeam" placeholder="Ej: Real Madrid" required>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Liga</label>
+                                            <select class="form-control" id="productLiga" required>
+                                                <option value="">Seleccionar...</option>
+                                                <option value="La Liga">La Liga</option>
+                                                <option value="Premier League">Premier League</option>
+                                                <option value="Serie A">Serie A</option>
+                                                <option value="Bundesliga">Bundesliga</option>
+                                                <option value="Ligue 1">Ligue 1</option>
+                                                <option value="Eredivisie">Eredivisie</option>
+                                                <option value="Liga Portugal">Liga Portugal</option>
+                                                <option value="Otra">Otra</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">País</label>
+                                            <input type="text" class="form-control" id="productPais" placeholder="Ej: España" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Precio ($)</label>
+                                    <input type="number" step="0.01" class="form-control" id="productPrecio" placeholder="89.99" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">URL de Imagen</label>
+                                    <input type="url" class="form-control" id="productImagen" placeholder="https://..." required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="productDestacado">
+                                        <label class="form-check-label" for="productDestacado" style="color: var(--text);">
+                                            Producto Destacado
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-hero btn-primary w-100">
+                                    <i class="bi bi-plus-lg"></i>
+                                    <span>AÑADIR PRODUCTO</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-7">
+                        <div class="card" style="background: var(--dark); border: 2px solid rgba(0, 255, 136, 0.2); border-radius: 15px; padding: 25px;">
+                            <h3 style="color: var(--primary); font-family: 'Bebas Neue', cursive; font-size: 1.8rem; margin-bottom: 20px;">
+                                <i class="bi bi-box-seam-fill"></i> PRODUCTOS (<span id="productCount">0</span>)
+                            </h3>
+                            
+                            <div id="productsList" style="max-height: 600px; overflow-y: auto;">
+                                <!-- Los productos se cargan aquí -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/admin.js"></script>
+    
+</body>
+</html>

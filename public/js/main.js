@@ -6,6 +6,7 @@
 // Variables globales
 let cart = [];
 let productos = [];
+let wishlist = [];
 let currentProduct = null;
 let selectedSize = 'L';
 let modalQuantity = 1;
@@ -22,9 +23,15 @@ async function initApp() {
     initSearch();
     initNewsletter();
     initAnimations();
+    initScrollToTop();
+    initCountdown();
     loadCart();
+    loadWishlist();
     renderProducts(productos);
+    renderBestSellers();
     updateCartUI();
+    updateWishlistUI();
+    checkFirstVisit();
 }
 
 // ============================================
@@ -656,3 +663,415 @@ function isValidEmail(email) {
 // ============================================
 console.log('%c⚽ EL FUTBOLITO', 'color: #00ff88; font-size: 24px; font-weight: bold;');
 console.log('%c✅ Sistema 100% funcional', 'color: #00d4ff; font-size: 16px;');
+
+// ============================================
+
+function hideLoadingScreen() {
+    const loader = document.getElementById('loadingScreen');
+    if (loader) {
+        setTimeout(() => {
+            loader.classList.add('hidden');
+        }, 1000);
+    }
+}
+
+// ============================================
+// SCROLL TO TOP
+// ============================================
+function initScrollToTop() {
+    const scrollBtn = document.getElementById('scrollToTop');
+    if (!scrollBtn) return;
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+            scrollBtn.classList.add('visible');
+        } else {
+            scrollBtn.classList.remove('visible');
+        }
+    });
+    
+    scrollBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+// ============================================
+// COUNTDOWN TIMER
+// ============================================
+function initCountdown() {
+    // Establecer fecha objetivo (24 horas desde ahora)
+    const endDate = new Date();
+    endDate.setHours(endDate.getHours() + 24);
+    
+    updateCountdown(endDate);
+    
+    setInterval(() => updateCountdown(endDate), 1000);
+}
+
+function updateCountdown(endDate) {
+    const now = new Date().getTime();
+    const distance = endDate - now;
+    
+    if (distance < 0) {
+        // Reiniciar contador
+        const newEndDate = new Date();
+        newEndDate.setHours(newEndDate.getHours() + 24);
+        updateCountdown(newEndDate);
+        return;
+    }
+    
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+    
+    if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+    if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+    if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+}
+
+// ============================================
+// WELCOME MODAL (FIRST VISIT)
+// ============================================
+function checkFirstVisit() {
+    const hasVisited = localStorage.getItem('elfutbolito_visited');
+    
+    if (!hasVisited) {
+        setTimeout(() => {
+            const modal = new bootstrap.Modal(document.getElementById('welcomeModal'));
+            modal.show();
+            localStorage.setItem('elfutbolito_visited', 'true');
+        }, 2000);
+    }
+}
+
+// ============================================
+// BESTSELLERS
+// ============================================
+function renderBestSellers() {
+    const grid = document.getElementById('bestSellersGrid');
+    if (!grid || productos.length === 0) return;
+    
+    // Seleccionar productos destacados (los primeros 4)
+    const bestSellers = productos.filter(p => p.destacado).slice(0, 4);
+    
+    grid.innerHTML = '';
+    bestSellers.forEach((producto) => {
+        const card = createProductCard(producto);
+        grid.appendChild(card);
+    });
+}
+
+// ============================================
+// WISHLIST SYSTEM
+// ============================================
+function loadWishlist() {
+    const saved = localStorage.getItem('elfutbolito_wishlist');
+    if (saved) {
+        try {
+            wishlist = JSON.parse(saved);
+            console.log('✅ Wishlist cargada:', wishlist.length);
+        } catch (error) {
+            wishlist = [];
+        }
+    }
+    updateWishlistBadge();
+}
+
+function saveWishlist() {
+    localStorage.setItem('elfutbolito_wishlist', JSON.stringify(wishlist));
+}
+
+function addToWishlist(productId) {
+    const producto = productos.find(p => p.id === productId);
+    if (!producto) return;
+    
+    const exists = wishlist.find(item => item.id === productId);
+    
+    if (exists) {
+        // Remover de favoritos
+        wishlist = wishlist.filter(item => item.id !== productId);
+        showNotification('💔 Eliminado de favoritos', 'info');
+    } else {
+        // Añadir a favoritos
+        wishlist.push({
+            id: producto.id,
+            nombre: producto.nombre,
+            equipo: producto.equipo,
+            precio: producto.precio,
+            imagen: producto.imagen
+        });
+        showNotification('❤️ ¡Añadido a favoritos!', 'success');
+    }
+    
+    saveWishlist();
+    updateWishlistBadge();
+    updateWishlistUI();
+    
+    // Animación del corazón
+    const btn = window.event?.target?.closest('.action-btn');
+    if (btn) {
+        const icon = btn.querySelector('i');
+        if (wishlist.find(item => item.id === productId)) {
+            icon.style.color = '#ff0066';
+            btn.style.transform = 'scale(1.3)';
+        } else {
+            icon.style.color = '';
+            btn.style.transform = 'scale(1.3)';
+        }
+        setTimeout(() => {
+            btn.style.transform = 'scale(1)';
+        }, 300);
+    }
+}
+
+function removeFromWishlist(productId) {
+    wishlist = wishlist.filter(item => item.id !== productId);
+    saveWishlist();
+    updateWishlistBadge();
+    updateWishlistUI();
+    showNotification('💔 Eliminado de favoritos', 'info');
+}
+
+function updateWishlistBadge() {
+    const badge = document.querySelector('.wishlist-badge');
+    if (badge) {
+        badge.textContent = wishlist.length;
+        badge.style.display = wishlist.length > 0 ? 'flex' : 'none';
+    }
+}
+
+function updateWishlistUI() {
+    const wishlistContent = document.getElementById('wishlistContent');
+    if (!wishlistContent) return;
+    
+    if (wishlist.length === 0) {
+        wishlistContent.innerHTML = `
+            <div class="empty-cart text-center py-5">
+                <i class="bi bi-heart-fill" style="font-size: 5rem; color: var(--text-muted); opacity: 0.3;"></i>
+                <p class="mt-3" style="color: var(--text-muted);">No tienes favoritos</p>
+                <a href="#productos" class="btn btn-hero btn-primary mt-3" data-bs-dismiss="offcanvas">
+                    <i class="bi bi-heart-fill"></i>
+                    <span>EXPLORAR PRODUCTOS</span>
+                </a>
+            </div>
+        `;
+    } else {
+        wishlistContent.innerHTML = `
+            <div class="cart-items">
+                ${wishlist.map((item) => `
+                    <div class="cart-item">
+                        <div class="cart-item-image">
+                            <img src="${item.imagen}" alt="${item.nombre}">
+                        </div>
+                        <div class="cart-item-info">
+                            <div class="cart-item-team">${item.equipo}</div>
+                            <div class="cart-item-name">${item.nombre}</div>
+                            <div class="cart-item-bottom">
+                                <div class="cart-item-price">$${item.precio.toFixed(2)}</div>
+                                <button class="btn btn-sm btn-primary" onclick="quickView(${item.id})" style="border-radius: 20px; padding: 8px 15px;">
+                                    <i class="bi bi-eye"></i> Ver
+                                </button>
+                                <button class="cart-item-remove" onclick="removeFromWishlist(${item.id})">
+                                    <i class="bi bi-trash-fill"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+            <div class="p-3">
+                <button class="btn btn-hero btn-outline w-100" onclick="addAllWishlistToCart()">
+                    <i class="bi bi-bag-plus-fill"></i>
+                    <span>AÑADIR TODOS AL CARRITO</span>
+                </button>
+            </div>
+        `;
+    }
+}
+
+function addAllWishlistToCart() {
+    if (wishlist.length === 0) return;
+    
+    let added = 0;
+    wishlist.forEach(item => {
+        addToCart(item.id, 'L', 1);
+        added++;
+    });
+    
+    showNotification(`✅ ${added} productos añadidos al carrito`, 'success');
+    
+    // Cerrar wishlist y abrir carrito
+    const wishlistOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById('wishlistOffcanvas'));
+    if (wishlistOffcanvas) wishlistOffcanvas.hide();
+    
+    setTimeout(() => {
+        const cartOffcanvas = new bootstrap.Offcanvas(document.getElementById('cartOffcanvas'));
+        cartOffcanvas.show();
+    }, 500);
+}
+
+function addToWishlistFromModal() {
+    if (currentProduct) {
+        addToWishlist(currentProduct.id);
+    }
+}
+
+// ============================================
+// NEWSLETTER
+// ============================================
+function initNewsletter() {
+    const form = document.getElementById('newsletterForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            if (email && isValidEmail(email)) {
+                showNotification('🎉 ¡Suscripción exitosa!', 'success');
+                this.reset();
+            } else {
+                showNotification('⚠️ Email inválido', 'error');
+            }
+        });
+    }
+}
+
+// ============================================
+// NOTIFICACIONES
+// ============================================
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    const colors = { success: '#00ff88', error: '#ff0066', info: '#00d4ff' };
+    
+    notification.style.cssText = `
+        position: fixed; top: 100px; right: 30px; z-index: 9999;
+        background: ${colors[type]}; color: #0a0e27;
+        padding: 20px 30px; border-radius: 15px; font-weight: 600;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        animation: slideIn 0.3s ease; max-width: 350px;
+    `;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn { from { transform: translateX(400px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(400px); opacity: 0; } }
+`;
+document.head.appendChild(style);
+
+// ============================================
+// ANIMACIONES
+// ============================================
+function initAnimations() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
+    
+    document.querySelectorAll('.feature-card, .section-header').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'all 0.6s ease';
+        observer.observe(el);
+    });
+}
+
+// ============================================
+// VISTA RÁPIDA
+// ============================================
+function quickView(productId) {
+    const producto = productos.find(p => p.id === productId);
+    if (!producto) return;
+    
+    currentProduct = producto;
+    selectedSize = 'L';
+    modalQuantity = 1;
+    
+    document.getElementById('modalProductName').textContent = producto.nombre;
+    document.getElementById('modalProductImage').src = producto.imagen;
+    document.getElementById('modalProductTeam').textContent = producto.equipo;
+    document.getElementById('modalProductTitle').textContent = producto.nombre;
+    document.getElementById('modalProductPrice').textContent = `$${producto.precio.toFixed(2)}`;
+    document.getElementById('modalQuantity').value = 1;
+    
+    document.querySelectorAll('.size-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.size === 'L') btn.classList.add('active');
+        btn.onclick = function() {
+            document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            selectedSize = this.dataset.size;
+        };
+    });
+    
+    document.getElementById('modalAddToCart').onclick = function() {
+        addToCart(currentProduct.id, selectedSize, modalQuantity);
+        const modal = bootstrap.Modal.getInstance(document.getElementById('quickViewModal'));
+        if (modal) modal.hide();
+    };
+    
+    const modal = new bootstrap.Modal(document.getElementById('quickViewModal'));
+    modal.show();
+}
+
+function increaseModalQty() {
+    if (modalQuantity < 10) {
+        modalQuantity++;
+        document.getElementById('modalQuantity').value = modalQuantity;
+    }
+}
+
+function decreaseModalQty() {
+    if (modalQuantity > 1) {
+        modalQuantity--;
+        document.getElementById('modalQuantity').value = modalQuantity;
+    }
+}
+
+// ============================================
+// UTILIDADES
+// ============================================
+function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+// Debounce para búsqueda
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// ============================================
+// CONTACT FORM
+// ============================================
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            showNotification('✅ ¡Mensaje enviado! Te contactaremos pronto', 'success');
+            this.reset();
+        });
+    }
+});
