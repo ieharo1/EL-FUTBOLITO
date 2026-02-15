@@ -351,20 +351,101 @@
     </footer>
 
     <!-- Cart Offcanvas -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas">
+    <div class="offcanvas offcanvas-end cart-offcanvas" tabindex="-1" id="cartOffcanvas">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title">
                 <i class="bi bi-bag-fill"></i> TU CARRITO
             </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
         </div>
         <div class="offcanvas-body">
-            <div class="empty-cart text-center py-5">
-                <i class="bi bi-bag-x" style="font-size: 4rem; color: #ddd;"></i>
-                <p class="mt-3">Tu carrito está vacío</p>
-                <a href="#productos" class="btn btn-primary mt-3" data-bs-dismiss="offcanvas">
-                    IR A COMPRAR
-                </a>
+            <div id="cartContent">
+                <!-- El contenido se cargará dinámicamente -->
+            </div>
+        </div>
+        <div class="offcanvas-footer" id="cartFooter">
+            <!-- El footer se cargará dinámicamente -->
+        </div>
+    </div>
+
+    <!-- Product Quick View Modal -->
+    <div class="modal fade" id="quickViewModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content product-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalProductName"></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="modal-product-image">
+                                <img id="modalProductImage" src="" alt="">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="modal-product-info">
+                                <span class="modal-product-team" id="modalProductTeam"></span>
+                                <h2 id="modalProductTitle"></h2>
+                                <div class="modal-product-price" id="modalProductPrice"></div>
+                                <p class="modal-product-description">
+                                    Camiseta oficial de la temporada 2024/25. Fabricada con tecnología Dri-FIT 
+                                    para mantener la comodidad durante el juego. Material 100% poliéster reciclado.
+                                </p>
+                                
+                                <div class="modal-size-selector mb-4">
+                                    <label class="form-label fw-bold">Talla:</label>
+                                    <div class="size-options">
+                                        <button class="size-btn" data-size="S">S</button>
+                                        <button class="size-btn" data-size="M">M</button>
+                                        <button class="size-btn active" data-size="L">L</button>
+                                        <button class="size-btn" data-size="XL">XL</button>
+                                        <button class="size-btn" data-size="XXL">XXL</button>
+                                    </div>
+                                </div>
+
+                                <div class="modal-quantity mb-4">
+                                    <label class="form-label fw-bold">Cantidad:</label>
+                                    <div class="quantity-selector">
+                                        <button class="qty-btn" onclick="decreaseModalQty()">
+                                            <i class="bi bi-dash"></i>
+                                        </button>
+                                        <input type="number" id="modalQuantity" value="1" min="1" max="10" readonly>
+                                        <button class="qty-btn" onclick="increaseModalQty()">
+                                            <i class="bi bi-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="modal-actions">
+                                    <button class="btn btn-hero btn-primary w-100 mb-3" id="modalAddToCart">
+                                        <i class="bi bi-bag-plus-fill"></i>
+                                        <span>AÑADIR AL CARRITO</span>
+                                    </button>
+                                    <button class="btn btn-hero btn-outline w-100" onclick="addToWishlistFromModal()">
+                                        <i class="bi bi-heart"></i>
+                                        <span>AÑADIR A FAVORITOS</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal-features mt-4">
+                                    <div class="feature-item">
+                                        <i class="bi bi-truck"></i>
+                                        <span>Envío gratis en pedidos +$50</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="bi bi-arrow-repeat"></i>
+                                        <span>Devoluciones gratis en 30 días</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="bi bi-shield-check"></i>
+                                        <span>100% producto original</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
