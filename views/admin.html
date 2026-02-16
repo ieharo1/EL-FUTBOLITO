@@ -15,6 +15,8 @@
             --dark: #0a0e27;
             --dark-light: #151933;
             --dark-lighter: #1f2342;
+            --text: #ffffff;
+            --text-muted: #8892b0;
         }
         
         body {
@@ -24,12 +26,80 @@
             min-height: 100vh;
         }
         
+        /* Tabla mejorada */
+        .table {
+            --bs-table-bg: transparent;
+            --bs-table-color: white;
+            --bs-table-border-color: rgba(0, 255, 136, 0.1);
+        }
+        
+        .table thead th {
+            background: var(--dark);
+            border-bottom: 2px solid var(--primary);
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            padding: 15px;
+        }
+        
+        .table tbody tr {
+            transition: all 0.3s ease;
+        }
+        
+        .table tbody tr:hover {
+            background: rgba(0, 255, 136, 0.05);
+            transform: scale(1.01);
+        }
+        
+        .table tbody td {
+            padding: 15px;
+            vertical-align: middle;
+        }
+        
+        /* Botones mejorados */
+        .btn-success {
+            background: rgba(0, 255, 136, 0.2);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-success:hover {
+            background: var(--primary);
+            color: var(--dark);
+        }
+        
+        .btn-danger {
+            background: rgba(255, 0, 102, 0.2);
+            border: 1px solid #ff0066;
+            color: #ff0066;
+        }
+        
+        .btn-danger:hover {
+            background: #ff0066;
+            color: white;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            border: none;
+            color: var(--dark);
+            font-weight: 600;
+        }
+        
+        .btn-primary:hover {
+            background: #00d4ff;
+            color: var(--dark);
+        }
+        
         .login-container {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             padding: 20px;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
         }
         
         .login-card {
@@ -39,6 +109,7 @@
             padding: 50px;
             max-width: 500px;
             width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 255, 136, 0.2);
         }
         
         .login-logo {
@@ -49,6 +120,7 @@
         .login-logo i {
             font-size: 4rem;
             color: var(--primary);
+            animation: pulse 2s ease-in-out infinite;
         }
         
         .login-logo h1 {
@@ -66,6 +138,7 @@
             padding: 15px 20px;
             border-radius: 10px;
             margin-bottom: 20px;
+            transition: all 0.3s ease;
         }
         
         .form-control:focus {
@@ -88,6 +161,7 @@
             color: var(--dark);
             font-weight: 800;
             font-size: 1.1rem;
+            transition: all 0.3s ease;
         }
         
         .btn-login:hover {
@@ -122,6 +196,12 @@
             padding: 10px 30px;
             border-radius: 50px;
             font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-logout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 0, 102, 0.5);
         }
         
         .stats-card {
@@ -130,6 +210,13 @@
             border-radius: 15px;
             padding: 30px;
             text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
         }
         
         .stats-value {
@@ -152,14 +239,6 @@
             padding: 30px;
         }
         
-        .table {
-            color: white;
-        }
-        
-        .table thead {
-            border-bottom: 2px solid var(--primary);
-        }
-        
         .btn-add {
             background: linear-gradient(135deg, var(--primary) 0%, #00d4ff 100%);
             color: var(--dark);
@@ -167,23 +246,12 @@
             padding: 12px 30px;
             border-radius: 50px;
             font-weight: 700;
+            transition: all 0.3s ease;
         }
         
-        .btn-edit, .btn-delete {
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            border: none;
-            color: white;
-        }
-        
-        .btn-edit {
-            background: #00d4ff;
-            color: var(--dark);
-        }
-        
-        .btn-delete {
-            background: #ff0066;
+        .btn-add:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.5);
         }
         
         .modal-content {
@@ -209,6 +277,11 @@
         select.form-control {
             cursor: pointer;
         }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
     </style>
 </head>
 <body>
@@ -221,10 +294,10 @@
                 <h1>ADMIN PANEL</h1>
                 <p style="color: #8892b0;">El Futbolito</p>
             </div>
-            <form id="loginForm">
+            <form id="loginForm" onsubmit="return false;">
                 <input type="text" class="form-control" id="username" placeholder="Usuario: admin" required>
                 <input type="password" class="form-control" id="password" placeholder="Contraseña: admin123" required>
-                <button type="submit" class="btn-login">
+                <button type="button" class="btn-login" onclick="doLogin()">
                     <i class="bi bi-box-arrow-in-right"></i> INICIAR SESIÓN
                 </button>
             </form>
@@ -282,9 +355,14 @@
                 <h2 style="font-family: 'Bebas Neue', cursive; font-size: 2rem; margin: 0;">
                     GESTIÓN DE PRODUCTOS
                 </h2>
-                <button class="btn-add" onclick="openAddModal()">
-                    <i class="bi bi-plus-circle"></i> AÑADIR PRODUCTO
-                </button>
+                <div>
+                    <button class="btn btn-outline-light btn-sm me-2" onclick="resetProductos()" style="border-radius: 20px;">
+                        <i class="bi bi-arrow-counterclockwise"></i> Restaurar
+                    </button>
+                    <button class="btn-add" onclick="openAddModal()">
+                        <i class="bi bi-plus-circle"></i> AÑADIR PRODUCTO
+                    </button>
+                </div>
             </div>
             
             <div class="table-responsive">
@@ -376,66 +454,77 @@
         let productos = [];
         let editingId = null;
 
-        // Login
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Función de login
+        function doLogin() {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             
+            console.log('Login attempt:', username, password);
+            
             if (username === 'admin' && password === 'admin123') {
-                // NO guardar en localStorage - forzar login cada vez
-                showAdmin();
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('adminContainer').style.display = 'block';
+                loadProductos();
             } else {
-                alert('❌ Usuario o contraseña incorrectos');
+                alert('❌ Usuario o contraseña incorrectos.\nUsuario: admin\nContraseña: admin123');
             }
-        });
-
-        function showAdmin() {
-            document.getElementById('loginContainer').style.display = 'none';
-            document.getElementById('adminContainer').style.display = 'block';
-            loadProductos();
         }
 
         function logout() {
-            // Recargar página para mostrar login
             location.reload();
         }
-
-        // NO HAY AUTO-LOGIN - Siempre mostrar pantalla de login
 
         // Load productos
         function loadProductos() {
             const saved = localStorage.getItem('admin_productos');
             if (saved) {
-                productos = JSON.parse(saved);
+                try {
+                    productos = JSON.parse(saved);
+                    if (!Array.isArray(productos) || productos.length === 0) {
+                        loadDefaultProducts();
+                    }
+                } catch (e) {
+                    console.error('Error parsing productos:', e);
+                    loadDefaultProducts();
+                }
             } else {
-                // USAR LOS MISMOS PRODUCTOS DE LA TIENDA PRINCIPAL
-                productos = [
-                    {id: 1, nombre: "Real Madrid 24/25 Local", equipo: "Real Madrid", liga: "La Liga", pais: "España", precio: 89.99, imagen: "https://images.unsplash.com/photo-1522778526097-ce0a22ceb253?w=400&h=400&fit=crop", destacado: true, enOferta: false},
-                    {id: 2, nombre: "Barcelona 24/25 Local", equipo: "FC Barcelona", liga: "La Liga", pais: "España", precio: 89.99, imagen: "https://images.unsplash.com/photo-1551958219-acbc608c6377?w=400&h=400&fit=crop", destacado: true, enOferta: false},
-                    {id: 3, nombre: "Atlético Madrid Local", equipo: "Atlético Madrid", liga: "La Liga", pais: "España", precio: 84.99, imagen: "https://images.unsplash.com/photo-1614632537239-e3a5fd7c1f4e?w=400&h=400&fit=crop", destacado: false, enOferta: false},
-                    {id: 4, nombre: "Manchester City Local", equipo: "Manchester City", liga: "Premier League", pais: "Inglaterra", precio: 88.99, imagen: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&h=400&fit=crop", destacado: true, enOferta: false},
-                    {id: 5, nombre: "Liverpool 24/25 Local", equipo: "Liverpool FC", liga: "Premier League", pais: "Inglaterra", precio: 88.99, imagen: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=400&fit=crop", destacado: true, enOferta: false},
-                    {id: 6, nombre: "Manchester United Local", equipo: "Manchester United", liga: "Premier League", pais: "Inglaterra", precio: 85.99, imagen: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400&h=400&fit=crop", destacado: true, enOferta: false},
-                    {id: 7, nombre: "Chelsea 24/25 Local", equipo: "Chelsea FC", liga: "Premier League", pais: "Inglaterra", precio: 84.99, imagen: "https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?w=400&h=400&fit=crop", destacado: false, enOferta: false},
-                    {id: 8, nombre: "Arsenal 24/25 Local", equipo: "Arsenal FC", liga: "Premier League", pais: "Inglaterra", precio: 87.99, imagen: "https://images.unsplash.com/photo-1511556820780-d912e42b4980?w=400&h=400&fit=crop", destacado: true, enOferta: false},
-                    {id: 9, nombre: "Juventus 24/25 Local", equipo: "Juventus", liga: "Serie A", pais: "Italia", precio: 86.99, imagen: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400&h=400&fit=crop", destacado: true, enOferta: false},
-                    {id: 10, nombre: "AC Milan Local", equipo: "AC Milan", liga: "Serie A", pais: "Italia", precio: 85.99, imagen: "https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=400&h=400&fit=crop", destacado: true, enOferta: false},
-                    {id: 11, nombre: "Inter Milan Local", equipo: "Inter Milan", liga: "Serie A", pais: "Italia", precio: 85.99, imagen: "https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=400&h=400&fit=crop", destacado: true, enOferta: false},
-                    {id: 12, nombre: "Bayern Munich Local", equipo: "Bayern Munich", liga: "Bundesliga", pais: "Alemania", precio: 87.99, imagen: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=400&fit=crop", destacado: true, enOferta: false},
-                    {id: 13, nombre: "Borussia Dortmund Local", equipo: "Borussia Dortmund", liga: "Bundesliga", pais: "Alemania", precio: 84.99, imagen: "https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=400&h=400&fit=crop", destacado: true, enOferta: false},
-                    {id: 14, nombre: "PSG 24/25 Local", equipo: "Paris Saint-Germain", liga: "Ligue 1", pais: "Francia", precio: 92.99, imagen: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=400&h=400&fit=crop", destacado: true, enOferta: false},
-                    {id: 15, nombre: "Napoli Local", equipo: "SSC Napoli", liga: "Serie A", pais: "Italia", precio: 83.99, imagen: "https://images.unsplash.com/photo-1517466787929-bc90951d0974?w=400&h=400&fit=crop", destacado: false, enOferta: false},
-                    {id: 16, nombre: "Tottenham Local", equipo: "Tottenham", liga: "Premier League", pais: "Inglaterra", precio: 83.99, imagen: "https://images.unsplash.com/photo-1577212017308-2f0cbf5a8a8c?w=400&h=400&fit=crop", destacado: false, enOferta: false},
-                    {id: 17, nombre: "RB Leipzig Local", equipo: "RB Leipzig", liga: "Bundesliga", pais: "Alemania", precio: 79.99, imagen: "https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?w=400&h=400&fit=crop", destacado: false, enOferta: false},
-                    {id: 18, nombre: "Marseille Local", equipo: "Olympique Marseille", liga: "Ligue 1", pais: "Francia", precio: 79.99, imagen: "https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=400&h=400&fit=crop", destacado: false, enOferta: false},
-                    {id: 19, nombre: "AS Roma Local", equipo: "AS Roma", liga: "Serie A", pais: "Italia", precio: 82.99, imagen: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=400&h=400&fit=crop", destacado: false, enOferta: false},
-                    {id: 20, nombre: "Valencia CF Local", equipo: "Valencia CF", liga: "La Liga", pais: "España", precio: 79.99, imagen: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400&h=400&fit=crop", destacado: false, enOferta: false}
-                ];
-                // Guardar por primera vez
-                saveProductos();
+                loadDefaultProducts();
             }
             renderProductos();
+        }
+
+        function loadDefaultProducts() {
+            productos = [
+                {id: 1, nombre: "Real Madrid 24/25 Local", equipo: "Real Madrid", liga: "La Liga", pais: "España", precio: 89.99, imagen: "https://images.unsplash.com/photo-1522778526097-ce0a22ceb253?w=400&h=400&fit=crop", destacado: true},
+                {id: 2, nombre: "Barcelona 24/25 Local", equipo: "FC Barcelona", liga: "La Liga", pais: "España", precio: 89.99, imagen: "https://images.unsplash.com/photo-1551958219-acbc608c6377?w=400&h=400&fit=crop", destacado: true},
+                {id: 3, nombre: "Atlético Madrid Local", equipo: "Atlético Madrid", liga: "La Liga", pais: "España", precio: 84.99, imagen: "https://images.unsplash.com/photo-1614632537239-e3a5fd7c1f4e?w=400&h=400&fit=crop", destacado: false},
+                {id: 4, nombre: "Manchester City Local", equipo: "Manchester City", liga: "Premier League", pais: "Inglaterra", precio: 88.99, imagen: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&h=400&fit=crop", destacado: true},
+                {id: 5, nombre: "Liverpool 24/25 Local", equipo: "Liverpool FC", liga: "Premier League", pais: "Inglaterra", precio: 88.99, imagen: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=400&fit=crop", destacado: true},
+                {id: 6, nombre: "Manchester United Local", equipo: "Manchester United", liga: "Premier League", pais: "Inglaterra", precio: 85.99, imagen: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400&h=400&fit=crop", destacado: true},
+                {id: 7, nombre: "Chelsea 24/25 Local", equipo: "Chelsea FC", liga: "Premier League", pais: "Inglaterra", precio: 84.99, imagen: "https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?w=400&h=400&fit=crop", destacado: false},
+                {id: 8, nombre: "Arsenal 24/25 Local", equipo: "Arsenal FC", liga: "Premier League", pais: "Inglaterra", precio: 87.99, imagen: "https://images.unsplash.com/photo-1511556820780-d912e42b4980?w=400&h=400&fit=crop", destacado: true},
+                {id: 9, nombre: "Juventus 24/25 Local", equipo: "Juventus", liga: "Serie A", pais: "Italia", precio: 86.99, imagen: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400&h=400&fit=crop", destacado: true},
+                {id: 10, nombre: "AC Milan Local", equipo: "AC Milan", liga: "Serie A", pais: "Italia", precio: 85.99, imagen: "https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=400&h=400&fit=crop", destacado: true},
+                {id: 11, nombre: "Inter Milan Local", equipo: "Inter Milan", liga: "Serie A", pais: "Italia", precio: 85.99, imagen: "https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=400&h=400&fit=crop", destacado: true},
+                {id: 12, nombre: "Bayern Munich Local", equipo: "Bayern Munich", liga: "Bundesliga", pais: "Alemania", precio: 87.99, imagen: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=400&fit=crop", destacado: true},
+                {id: 13, nombre: "Borussia Dortmund Local", equipo: "Borussia Dortmund", liga: "Bundesliga", pais: "Alemania", precio: 84.99, imagen: "https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=400&h=400&fit=crop", destacado: true},
+                {id: 14, nombre: "PSG 24/25 Local", equipo: "Paris Saint-Germain", liga: "Ligue 1", pais: "Francia", precio: 92.99, imagen: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=400&h=400&fit=crop", destacado: true},
+                {id: 15, nombre: "Napoli Local", equipo: "SSC Napoli", liga: "Serie A", pais: "Italia", precio: 83.99, imagen: "https://images.unsplash.com/photo-1517466787929-bc90951d0974?w=400&h=400&fit=crop", destacado: false},
+                {id: 16, nombre: "Tottenham Local", equipo: "Tottenham", liga: "Premier League", pais: "Inglaterra", precio: 83.99, imagen: "https://images.unsplash.com/photo-1577212017308-2f0cbf5a8a8c?w=400&h=400&fit=crop", destacado: false},
+                {id: 17, nombre: "RB Leipzig Local", equipo: "RB Leipzig", liga: "Bundesliga", pais: "Alemania", precio: 79.99, imagen: "https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?w=400&h=400&fit=crop", destacado: false},
+                {id: 18, nombre: "Marseille Local", equipo: "Olympique Marseille", liga: "Ligue 1", pais: "Francia", precio: 79.99, imagen: "https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=400&h=400&fit=crop", destacado: false},
+                {id: 19, nombre: "AS Roma Local", equipo: "AS Roma", liga: "Serie A", pais: "Italia", precio: 82.99, imagen: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=400&h=400&fit=crop", destacado: false},
+                {id: 20, nombre: "Valencia CF Local", equipo: "Valencia CF", liga: "La Liga", pais: "España", precio: 79.99, imagen: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400&h=400&fit=crop", destacado: false}
+            ];
+            saveProductos();
+        }
+
+        function resetProductos() {
+            if (confirm('¿Restaurar productos por defecto? Esto reemplazará todos los productos actuales.')) {
+                loadDefaultProducts();
+                renderProductos();
+                showNotification('✅ Productos restaurados', 'success');
+            }
         }
 
         function saveProductos() {
@@ -448,27 +537,31 @@
             
             productos.forEach(producto => {
                 const enOferta = producto.enOferta || false;
+                const imgUrl = producto.imagen || 'https://via.placeholder.com/50';
                 tbody.innerHTML += `
-                    <tr>
-                        <td>${producto.id}</td>
-                        <td><img src="${producto.imagen}" width="50" height="50" style="object-fit: cover; border-radius: 8px;"></td>
-                        <td>${producto.nombre}</td>
-                        <td>${producto.equipo}</td>
-                        <td>${producto.liga}</td>
-                        <td>$${producto.precio.toFixed(2)}</td>
+                    <tr style="vertical-align: middle;">
+                        <td style="font-weight: bold; color: var(--primary);">#${producto.id}</td>
                         <td>
-                            <button class="btn ${enOferta ? 'btn-delete' : 'btn-add'}" 
+                            <img src="${imgUrl}" width="50" height="50" style="object-fit: cover; border-radius: 8px; border: 2px solid var(--primary);" 
+                                onerror="this.src='https://via.placeholder.com/50?text=⚽'">
+                        </td>
+                        <td style="font-weight: 600;">${producto.nombre || 'Sin nombre'}</td>
+                        <td><span class="badge" style="background: var(--primary); color: var(--dark); padding: 5px 10px; border-radius: 20px; font-size: 0.8rem;">${producto.equipo || 'N/A'}</span></td>
+                        <td style="color: var(--text-muted);">${producto.liga || 'N/A'}</td>
+                        <td style="font-weight: bold; color: var(--primary); font-size: 1.1rem;">$${(producto.precio || 0).toFixed(2)}</td>
+                        <td>
+                            <button class="btn ${enOferta ? 'btn-danger' : 'btn-success'}" 
                                     onclick="toggleOferta(${producto.id})"
-                                    style="padding: 5px 15px; font-size: 0.85rem;">
-                                ${enOferta ? '🔥 EN OFERTA' : '➕ Añadir Oferta'}
+                                    style="padding: 5px 15px; font-size: 0.8rem; border-radius: 20px; border: none;">
+                                ${enOferta ? '🔥 ACTIVO' : '💤 INACTIVO'}
                             </button>
                         </td>
                         <td>
-                            <button class="btn-edit me-2" onclick="editProduct(${producto.id})">
+                            <button class="btn btn-primary btn-sm me-1" onclick="editProduct(${producto.id})" style="border-radius: 20px;">
                                 <i class="bi bi-pencil"></i> Editar
                             </button>
-                            <button class="btn-delete" onclick="deleteProduct(${producto.id})">
-                                <i class="bi bi-trash"></i> Eliminar
+                            <button class="btn btn-danger btn-sm" onclick="deleteProduct(${producto.id})" style="border-radius: 20px;">
+                                <i class="bi bi-trash"></i>
                             </button>
                         </td>
                     </tr>
@@ -554,13 +647,40 @@
                 producto.enOferta = !producto.enOferta;
                 saveProductos();
                 renderProductos();
-                if (producto.enOferta) {
-                    alert('🔥 ¡Producto añadido a Ofertas Flash!');
-                } else {
-                    alert('❌ Producto removido de Ofertas Flash');
-                }
+                showNotification(
+                    producto.enOferta ? '🔥 Producto en oferta!' : '❌ Oferta removida',
+                    producto.enOferta ? 'success' : 'info'
+                );
             }
         }
+
+        // Notificaciones
+        function showNotification(message, type = 'info') {
+            const colors = { success: '#00ff88', error: '#ff0066', info: '#00d4ff' };
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed; top: 100px; right: 30px; z-index: 9999;
+                background: ${colors[type]}; color: #0a0e27;
+                padding: 15px 25px; border-radius: 15px; font-weight: 600;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                animation: slideIn 0.3s ease; max-width: 300px;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Agregar animaciones
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn { from { transform: translateX(400px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+            @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(400px); opacity: 0; } }
+        `;
+        document.head.appendChild(style);
     </script>
 
 </body>

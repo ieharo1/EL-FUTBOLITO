@@ -73,59 +73,59 @@ async function initApp() {
 }
 
 // ============================================
-// RENDERIZADO DE PRODUCTOS
-// ============================================
-function renderProducts(productsToRender) {
-    const grid = document.getElementById('productsGrid');
-    if (!grid) {
-        console.error('❌ No se encontró #productsGrid');
-        return;
-    }
-    
-    grid.innerHTML = '';
-    
-    if (!productsToRender || productsToRender.length === 0) {
-        grid.innerHTML = '<div class="col-12 text-center py-5"><p style="color: #8892b0;">No hay productos</p></div>';
-        return;
-    }
-    
-    console.log('✅ Mostrando', productsToRender.length, 'productos');
-    
-    productsToRender.forEach((producto) => {
-        const col = document.createElement('div');
-        col.className = 'col-lg-3 col-md-6 mb-4';
-        
-        col.innerHTML = `
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="${producto.imagen}" alt="${producto.nombre}" loading="lazy">
-                    <span class="product-badge">NUEVO</span>
-                    <div class="product-actions">
-                        <button class="action-btn" onclick="addToWishlist(${producto.id})">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                        <button class="action-btn" onclick="quickView(${producto.id})">
-                            <i class="bi bi-eye"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="product-info">
-                    <div class="product-team">${producto.equipo}</div>
-                    <h3 class="product-name">${producto.nombre}</h3>
-                    <div class="product-price">$${producto.precio.toFixed(2)}</div>
-                    <div class="product-footer">
-                        <button class="btn-cart" onclick="addToCartQuick(${producto.id})">
-                            <i class="bi bi-bag-plus-fill"></i>
-                            <span>AÑADIR</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `;
-        
-        grid.appendChild(col);
-    });
-}
+ // RENDERIZADO DE PRODUCTOS
+ // ============================================
+ function renderProducts(productsToRender) {
+     const grid = document.getElementById('productsGrid');
+     if (!grid) {
+         console.error('❌ No se encontró #productsGrid');
+         return;
+     }
+     
+     grid.innerHTML = '';
+     
+     if (!productsToRender || productsToRender.length === 0) {
+         grid.innerHTML = '<div class="col-12 text-center py-5"><p style="color: #8892b0;">No hay productos</p></div>';
+         return;
+     }
+     
+     console.log('✅ Mostrando', productsToRender.length, 'productos');
+     
+     productsToRender.forEach((producto) => {
+         const col = document.createElement('div');
+         col.className = 'col-lg-3 col-md-6 mb-4';
+         
+         col.innerHTML = `
+             <div class="product-card">
+                 <div class="product-image">
+                     <img src="${producto.imagen}" alt="${producto.nombre}" loading="lazy">
+                     <span class="product-badge">NUEVO</span>
+                     <div class="product-actions">
+                         <button class="action-btn" onclick="addToWishlist(${producto.id})">
+                             <i class="bi bi-heart"></i>
+                         </button>
+                         <button class="action-btn" onclick="quickView(${producto.id})">
+                             <i class="bi bi-eye"></i>
+                         </button>
+                     </div>
+                 </div>
+                 <div class="product-info">
+                     <div class="product-team">${producto.equipo}</div>
+                     <h3 class="product-name">${producto.nombre}</h3>
+                     <div class="product-price">$${producto.precio.toFixed(2)}</div>
+                     <div class="product-footer">
+                         <button class="btn-cart" onclick="addToCartQuick(${producto.id})">
+                             <i class="bi bi-bag-plus-fill"></i>
+                             <span>AÑADIR</span>
+                         </button>
+                     </div>
+                 </div>
+             </div>
+         `;
+         
+         grid.appendChild(col);
+     });
+ }
 
 function renderBestSellers() {
     const grid = document.getElementById('bestSellersGrid');

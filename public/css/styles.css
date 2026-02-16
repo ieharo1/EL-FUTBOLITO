@@ -53,6 +53,12 @@ body {
     padding: 10px 0;
     border-bottom: 1px solid rgba(0, 255, 136, 0.1);
     font-size: 0.85rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1001;
 }
 
 .top-info {
@@ -85,15 +91,29 @@ body {
 
 /* Main Navigation */
 .navbar {
-    height: 190px;
-    padding: 20px 0;
-    background: rgba(10, 14, 39, 0.95) !important;
-    backdrop-filter: blur(10px);
+    height: auto;
+    min-height: 120px;
+    padding: 15px 0;
+    background: rgba(10, 14, 39, 0.98) !important;
+    backdrop-filter: blur(15px);
     border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+    transition: all 0.4s ease;
 }
 
+/* Navbar con scroll - efectos mejorados */
 .navbar.scrolled {
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    background: rgba(10, 14, 39, 0.99) !important;
+    backdrop-filter: blur(20px);
+    padding: 10px 0;
+}
+
+.navbar.scrolled .logo i {
+    font-size: 2rem;
+}
+
+.navbar.scrolled .logo-main {
+    font-size: 1.5rem;
 }
 
 .logo {
@@ -185,8 +205,12 @@ body {
 .btn-icon:hover {
     background: var(--primary);
     color: var(--dark);
-    transform: rotate(15deg) scale(1.1);
+    transform: rotate(15deg) scale(1.1) translateY(-3px);
     box-shadow: var(--shadow-glow);
+}
+
+.btn-icon:active {
+    transform: scale(0.95);
 }
 
 .cart-badge {
@@ -283,18 +307,6 @@ body {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     display: inline-block;
-    position: relative;
-}
-
-.hero-title .highlight::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: var(--gradient);
-    border-radius: 2px;
 }
 
 .hero-description {
@@ -1022,6 +1034,119 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--primary-dark);
+}
+
+/* ============================================
+   NUEVAS MEJORAS VISUALES
+   ============================================ */
+
+/* Efecto de hover mejorado en productos */
+.product-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+    transition: left 0.5s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.product-card:hover::before {
+    left: 100%;
+}
+
+/* Efecto de brillo en imágenes de productos */
+.product-image img {
+    transition: all 0.5s ease;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.1) rotate(2deg);
+}
+
+/* Botón de añadir al carrito mejorado */
+.btn-cart {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-cart::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn-cart:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+/* Animación de pulse en el carrito */
+@keyframes cartPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.cart-badge.pulse {
+    animation: cartPulse 0.3s ease;
+}
+
+/* Efecto de parallax suave */
+.hero-section {
+    perspective: 1000px;
+}
+
+.hero-content {
+    transform-style: preserve-3d;
+}
+
+/* Slide reveal animations */
+.slide-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.slide-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Efecto de shimmer en botones */
+.btn-shimmer {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-shimmer:hover::before {
+    left: 100%;
 }
 
 /* ============================================
@@ -2714,66 +2839,30 @@ body {
 }
 
 /* ============================================
-   NAVBAR STICKY - SE QUEDA FIJO AL HACER SCROLL
+   NAVBAR FIJO
    ============================================ */
 
 .navbar {
     position: fixed !important;
-    top: 0;
+    top: 40px;
     left: 0;
     right: 0;
     width: 100%;
     z-index: 1000;
-    transition: all 0.3s ease;
-}
-
-.navbar.scrolled {
-    background: var(--dark) !important;
-    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
+    transition: none;
+    margin: 0;
+    border-radius: 0;
 }
 
 /* Compensar el espacio del navbar fijo */
 body {
-    padding-top: 160px; /* Altura del navbar + top bar */
-}
-
-/* Top bar también fijo */
-.top-bar {
-    position: fixed !important;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    z-index: 1001;
-    background: var(--dark-light);
-}
-
-.main-nav {
-    position: fixed;
-    top: 40px; /* Altura del top bar */
-    left: 0;
-    right: 0;
-    width: 100%;
-    z-index: 1000;
-    background: var(--dark);
-    transition: all 0.3s ease;
-}
-
-/* Cuando haces scroll, ocultar top bar y subir navbar */
-.navbar.scrolled .top-bar {
-    transform: translateY(-100%);
-}
-
-.navbar.scrolled .main-nav {
-    top: 0;
-    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+    padding-top: 160px;
 }
 
 /* Hero section debe estar debajo del navbar */
 .hero-section {
     margin-top: 0;
-    padding-top: 80px;
+    padding-top: 40px;
 }
 
 /* Responsive */
@@ -2781,18 +2870,10 @@ body {
     body {
         padding-top: 140px;
     }
-    
-    .hero-section {
-        padding-top: 40px;
-    }
 }
 
 @media (max-width: 767px) {
     body {
         padding-top: 120px;
-    }
-    
-    .hero-section {
-        padding-top: 20px;
     }
 }
