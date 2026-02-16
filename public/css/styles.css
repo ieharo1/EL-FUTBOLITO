@@ -85,6 +85,7 @@ body {
 
 /* Main Navigation */
 .navbar {
+    height: 190px;
     padding: 20px 0;
     background: rgba(10, 14, 39, 0.95) !important;
     backdrop-filter: blur(10px);
@@ -2710,4 +2711,88 @@ body {
 
 #quickViewModal .modal-product-image {
     background: var(--dark-light) !important;
+}
+
+/* ============================================
+   NAVBAR STICKY - SE QUEDA FIJO AL HACER SCROLL
+   ============================================ */
+
+.navbar {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.navbar.scrolled {
+    background: var(--dark) !important;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+}
+
+/* Compensar el espacio del navbar fijo */
+body {
+    padding-top: 160px; /* Altura del navbar + top bar */
+}
+
+/* Top bar también fijo */
+.top-bar {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1001;
+    background: var(--dark-light);
+}
+
+.main-nav {
+    position: fixed;
+    top: 40px; /* Altura del top bar */
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
+    background: var(--dark);
+    transition: all 0.3s ease;
+}
+
+/* Cuando haces scroll, ocultar top bar y subir navbar */
+.navbar.scrolled .top-bar {
+    transform: translateY(-100%);
+}
+
+.navbar.scrolled .main-nav {
+    top: 0;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Hero section debe estar debajo del navbar */
+.hero-section {
+    margin-top: 0;
+    padding-top: 80px;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    body {
+        padding-top: 140px;
+    }
+    
+    .hero-section {
+        padding-top: 40px;
+    }
+}
+
+@media (max-width: 767px) {
+    body {
+        padding-top: 120px;
+    }
+    
+    .hero-section {
+        padding-top: 20px;
+    }
 }
