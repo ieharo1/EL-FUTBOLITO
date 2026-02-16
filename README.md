@@ -209,12 +209,21 @@ Para más información:
 - 📧 Email: info@elfutbolito.com
 - 📱 WhatsApp: +1234567890
 
+---
+
 ## 📄 Licencia
 
-Este proyecto está bajo la Licencia ISC.
+MIT — contribuciones bienvenidas 🚀
 
 ---
 
-**Desarrollado con ❤️ y ⚽ para los amantes del fútbol**
+## 💻 Creado Por
 
-**¡LISTO PARA PRODUCCIÓN! 🚀**
+🧑‍💻 Isaac Haro
+
+Ingeniero en Sistemas · Full Stack · Automatización · Data
+
+Isaac Esteban Haro Torres
+- 📧 zackharo1@gmail.com
+- 📱 098805517
+- 💻 [GitHub](https://github.com/ieharo1)
