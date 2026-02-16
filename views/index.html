@@ -344,6 +344,142 @@
         </div>
     </section>
 
+    <!-- Equipos Section -->
+    <section id="equipos" class="equipos-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-badge">⚽ EQUIPOS</span>
+                <h2 class="section-title">
+                    NUESTROS <span class="highlight">EQUIPOS</span>
+                </h2>
+                <p class="section-description">
+                    Explora camisetas de los mejores equipos del mundo
+                </p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="equipo-card" onclick="filterProducts('La Liga')">
+                        <div class="equipo-icon">🇪🇸</div>
+                        <h3>LA LIGA</h3>
+                        <p>Real Madrid, Barcelona, Atlético...</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="equipo-card" onclick="filterProducts('Premier League')">
+                        <div class="equipo-icon">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+                        <h3>PREMIER LEAGUE</h3>
+                        <p>Man City, Liverpool, Arsenal...</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="equipo-card" onclick="filterProducts('Serie A')">
+                        <div class="equipo-icon">🇮🇹</div>
+                        <h3>SERIE A</h3>
+                        <p>Juventus, Milan, Inter...</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="equipo-card" onclick="filterProducts('Bundesliga')">
+                        <div class="equipo-icon">🇩🇪</div>
+                        <h3>BUNDESLIGA</h3>
+                        <p>Bayern, Dortmund, Leipzig...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ofertas Section -->
+    <section id="ofertas" class="ofertas-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-badge">🔥 OFERTAS</span>
+                <h2 class="section-title">
+                    OFERTAS <span class="highlight">ESPECIALES</span>
+                </h2>
+                <p class="section-description">
+                    Aprovecha nuestros mejores descuentos
+                </p>
+            </div>
+            <div class="row g-4" id="ofertasGrid">
+                <!-- Se carga dinámicamente -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto Section -->
+    <section id="contacto" class="contacto-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-badge">📞 CONTACTO</span>
+                <h2 class="section-title">
+                    <span class="highlight">CONTÁCTANOS</span>
+                </h2>
+                <p class="section-description">
+                    Estamos aquí para ayudarte
+                </p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="contacto-card">
+                        <div class="contacto-icon">
+                            <i class="bi bi-geo-alt-fill"></i>
+                        </div>
+                        <h3>UBICACIÓN</h3>
+                        <p>Calle del Fútbol 123<br>Madrid, España 28001</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="contacto-card">
+                        <div class="contacto-icon">
+                            <i class="bi bi-telephone-fill"></i>
+                        </div>
+                        <h3>TELÉFONO</h3>
+                        <p>+34 123 456 789<br>Lun-Vie: 9:00 - 20:00</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="contacto-card">
+                        <div class="contacto-icon">
+                            <i class="bi bi-envelope-fill"></i>
+                        </div>
+                        <h3>EMAIL</h3>
+                        <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2f464149406f4a43495a5b4d4043465b40014c4042">[email&#160;protected]</a><br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cfb9aaa1bbaebc8faaa3a9babbada0a3a6bba0e1aca0a2">[email&#160;protected]</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-lg-8 mx-auto">
+                    <div class="contacto-form-card">
+                        <h3>ENVÍANOS UN MENSAJE</h3>
+                        <form id="contactForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" placeholder="Tu Nombre" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="email" class="form-control" placeholder="Tu Email" required>
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" class="form-control" placeholder="Asunto" required>
+                                </div>
+                                <div class="col-12">
+                                    <textarea class="form-control" rows="5" placeholder="Tu Mensaje" required></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-hero btn-primary w-100">
+                                        <i class="bi bi-send-fill"></i>
+                                        <span>ENVIAR MENSAJE</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- About Section -->
     <section id="nosotros" class="about-section">
         <div class="container">
@@ -441,7 +577,7 @@
                             <i class="bi bi-envelope-fill"></i>
                         </div>
                         <h3>Email</h3>
-                        <p>info@elfutbolito.com<br>ventas@elfutbolito.com</p>
+                        <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="81e8efe7eec1e4ede7f4f5e3eeede8f5eeafe2eeec">[email&#160;protected]</a><br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="196f7c776d786a597c757f6c6d7b7675706d76377a7674">[email&#160;protected]</a></p>
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -736,7 +872,7 @@
     </div>
 
     <!-- Bootstrap 5 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- Custom JS -->
     <script src="/js/main.js"></script>
@@ -770,27 +906,4 @@
                         </button>
                         <div class="welcome-terms">
                             *Válido solo para nuevos clientes. Compra mínima de $50
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Wishlist Offcanvas -->
-    <div class="offcanvas offcanvas-end cart-offcanvas" tabindex="-1" id="wishlistOffcanvas">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title">
-                <i class="bi bi-heart-fill"></i> FAVORITOS
-            </h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
-        </div>
-        <div class="offcanvas-body">
-            <div id="wishlistContent">
-                <!-- Se carga con JavaScript -->
-            </div>
-        </div>
-    </div>
-
-</body>
-</html>
+      

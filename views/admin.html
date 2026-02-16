@@ -5,276 +5,563 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - El Futbolito</title>
     
-    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Exo+2:wght@400;600;800&display=swap" rel="stylesheet">
     
     <style>
-        .admin-container {
-            min-height: 100vh;
+        :root {
+            --primary: #00ff88;
+            --dark: #0a0e27;
+            --dark-light: #151933;
+            --dark-lighter: #1f2342;
+        }
+        
+        body {
+            font-family: 'Exo 2', sans-serif;
             background: var(--dark);
-            padding: 40px 0;
+            color: white;
+            min-height: 100vh;
         }
         
-        .login-card, .admin-panel {
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .login-card {
             background: var(--dark-lighter);
-            border: 2px solid rgba(0, 255, 136, 0.2);
+            border: 2px solid var(--primary);
             border-radius: 20px;
-            padding: 40px;
+            padding: 50px;
             max-width: 500px;
-            margin: 0 auto;
+            width: 100%;
         }
         
-        .admin-panel {
-            max-width: 1200px;
-        }
-        
-        .login-header {
+        .login-logo {
             text-align: center;
             margin-bottom: 30px;
         }
         
-        .login-header i {
+        .login-logo i {
             font-size: 4rem;
             color: var(--primary);
-            margin-bottom: 20px;
         }
         
-        .login-header h2 {
+        .login-logo h1 {
             font-family: 'Bebas Neue', cursive;
             font-size: 2.5rem;
-            color: var(--primary);
             letter-spacing: 2px;
+            color: var(--primary);
+            margin-top: 10px;
         }
         
         .form-control {
             background: var(--dark);
             border: 2px solid rgba(0, 255, 136, 0.2);
-            color: var(--text);
-            padding: 12px 20px;
+            color: white;
+            padding: 15px 20px;
             border-radius: 10px;
+            margin-bottom: 20px;
         }
         
         .form-control:focus {
             background: var(--dark);
             border-color: var(--primary);
-            color: var(--text);
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+            color: white;
+            box-shadow: 0 0 0 0.2rem rgba(0, 255, 136, 0.25);
+        }
+        
+        .form-control::placeholder {
+            color: #8892b0;
+        }
+        
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary) 0%, #00d4ff 100%);
+            border: none;
+            border-radius: 50px;
+            color: var(--dark);
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+        
+        .btn-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.5);
+        }
+        
+        .admin-container {
+            display: none;
+            padding: 30px;
+        }
+        
+        .admin-header {
+            background: var(--dark-lighter);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(0, 255, 136, 0.1);
+        }
+        
+        .admin-header h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 3rem;
+            color: var(--primary);
+            margin: 0;
+        }
+        
+        .btn-logout {
+            background: #ff0066;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+        }
+        
+        .stats-card {
+            background: var(--dark-lighter);
+            border: 2px solid rgba(0, 255, 136, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .stats-value {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        
+        .stats-label {
+            color: #8892b0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        
+        .productos-table {
+            background: var(--dark-lighter);
+            border: 2px solid rgba(0, 255, 136, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+        }
+        
+        .table {
+            color: white;
+        }
+        
+        .table thead {
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .btn-add {
+            background: linear-gradient(135deg, var(--primary) 0%, #00d4ff 100%);
+            color: var(--dark);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+        }
+        
+        .btn-edit, .btn-delete {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: none;
+            color: white;
+        }
+        
+        .btn-edit {
+            background: #00d4ff;
+            color: var(--dark);
+        }
+        
+        .btn-delete {
+            background: #ff0066;
+        }
+        
+        .modal-content {
+            background: var(--dark-lighter);
+            border: 2px solid var(--primary);
+            color: white;
+        }
+        
+        .modal-header {
+            border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+        }
+        
+        .btn-close {
+            filter: invert(1);
         }
         
         .form-label {
-            color: var(--text);
+            color: var(--primary);
             font-weight: 600;
             margin-bottom: 8px;
         }
         
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid rgba(0, 255, 136, 0.2);
-        }
-        
-        .admin-title {
-            font-family: 'Bebas Neue', cursive;
-            font-size: 2rem;
-            color: var(--primary);
-            letter-spacing: 2px;
-            margin: 0;
-        }
-        
-        .product-item {
-            background: var(--dark);
-            border: 1px solid rgba(0, 255, 136, 0.1);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .product-item img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-        
-        .product-info {
-            flex: 1;
-        }
-        
-        .product-name {
-            color: var(--text);
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .product-price {
-            color: var(--primary);
-            font-weight: 700;
-        }
-        
-        .btn-delete {
-            background: var(--secondary);
-            border: none;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 8px;
+        select.form-control {
             cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-delete:hover {
-            transform: scale(1.1);
-            box-shadow: 0 5px 15px rgba(255, 0, 102, 0.5);
         }
     </style>
 </head>
 <body>
-    
-    <div class="admin-container">
-        <div class="container">
-            
-            <!-- Login Form -->
-            <div id="loginForm" class="login-card">
-                <div class="login-header">
-                    <i class="bi bi-shield-lock-fill"></i>
-                    <h2>PANEL DE ADMINISTRACIÓN</h2>
-                    <p style="color: var(--text-muted);">Ingresa tus credenciales</p>
+
+    <!-- Login -->
+    <div id="loginContainer" class="login-container">
+        <div class="login-card">
+            <div class="login-logo">
+                <i class="bi bi-shield-lock-fill"></i>
+                <h1>ADMIN PANEL</h1>
+                <p style="color: #8892b0;">El Futbolito</p>
+            </div>
+            <form id="loginForm">
+                <input type="text" class="form-control" id="username" placeholder="Usuario: admin" required>
+                <input type="password" class="form-control" id="password" placeholder="Contraseña: admin123" required>
+                <button type="submit" class="btn-login">
+                    <i class="bi bi-box-arrow-in-right"></i> INICIAR SESIÓN
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminContainer" class="admin-container">
+        <div class="admin-header d-flex justify-content-between align-items-center">
+            <div>
+                <h1>⚽ PANEL DE ADMINISTRACIÓN</h1>
+                <p style="margin: 0; color: #8892b0;">Gestiona tu tienda El Futbolito</p>
+            </div>
+            <div>
+                <a href="/" class="btn-logout me-2" style="text-decoration: none;">
+                    <i class="bi bi-house-fill"></i> TIENDA
+                </a>
+                <button class="btn-logout" onclick="logout()">
+                    <i class="bi bi-box-arrow-right"></i> CERRAR
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-value" id="totalProductos">0</div>
+                    <div class="stats-label">Total Productos</div>
                 </div>
-                
-                <form onsubmit="login(event)">
-                    <div class="mb-3">
-                        <label class="form-label">Usuario</label>
-                        <input type="text" class="form-control" id="username" placeholder="admin" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="password" placeholder="••••••••" required>
-                    </div>
-                    <button type="submit" class="btn btn-hero btn-primary w-100">
-                        <i class="bi bi-box-arrow-in-right"></i>
-                        <span>INICIAR SESIÓN</span>
-                    </button>
-                    <div class="mt-3 text-center">
-                        <small style="color: var(--text-muted);">Usuario: admin | Contraseña: admin123</small>
-                    </div>
-                </form>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-value">156</div>
+                    <div class="stats-label">Ventas</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-value">$12,450</div>
+                    <div class="stats-label">Ingresos</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-value">89</div>
+                    <div class="stats-label">Clientes</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Productos -->
+        <div class="productos-table">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 style="font-family: 'Bebas Neue', cursive; font-size: 2rem; margin: 0;">
+                    GESTIÓN DE PRODUCTOS
+                </h2>
+                <button class="btn-add" onclick="openAddModal()">
+                    <i class="bi bi-plus-circle"></i> AÑADIR PRODUCTO
+                </button>
             </div>
             
-            <!-- Admin Panel -->
-            <div id="adminPanel" class="admin-panel" style="display: none;">
-                <div class="admin-header">
-                    <h1 class="admin-title">
-                        <i class="bi bi-gear-fill"></i> PANEL DE ADMINISTRACIÓN
-                    </h1>
-                    <div>
-                        <a href="/" class="btn btn-hero btn-outline me-2">
-                            <i class="bi bi-house-fill"></i>
-                            <span>IR A TIENDA</span>
-                        </a>
-                        <button onclick="logout()" class="btn btn-hero btn-primary">
-                            <i class="bi bi-box-arrow-right"></i>
-                            <span>CERRAR SESIÓN</span>
-                        </button>
-                    </div>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>Equipo</th>
+                            <th>Liga</th>
+                            <th>Precio</th>
+                            <th>Oferta</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productosTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Add/Edit -->
+    <div class="modal fade" id="productModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">AÑADIR PRODUCTO</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                
-                <!-- Add Product Form -->
-                <div class="row">
-                    <div class="col-lg-5">
-                        <div class="card" style="background: var(--dark); border: 2px solid rgba(0, 255, 136, 0.2); border-radius: 15px; padding: 25px;">
-                            <h3 style="color: var(--primary); font-family: 'Bebas Neue', cursive; font-size: 1.8rem; margin-bottom: 20px;">
-                                <i class="bi bi-plus-circle-fill"></i> AÑADIR PRODUCTO
-                            </h3>
-                            
-                            <form id="addProductForm" onsubmit="addProduct(event)">
-                                <div class="mb-3">
-                                    <label class="form-label">Nombre del Producto</label>
-                                    <input type="text" class="form-control" id="productName" placeholder="Ej: Real Madrid 24/25 Local" required>
+                <div class="modal-body">
+                    <form id="productForm">
+                        <input type="hidden" id="productId">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Nombre del Producto</label>
+                                <input type="text" class="form-control" id="productNombre" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Equipo</label>
+                                <input type="text" class="form-control" id="productEquipo" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Liga</label>
+                                <select class="form-control" id="productLiga" required>
+                                    <option value="La Liga">La Liga</option>
+                                    <option value="Premier League">Premier League</option>
+                                    <option value="Serie A">Serie A</option>
+                                    <option value="Bundesliga">Bundesliga</option>
+                                    <option value="Ligue 1">Ligue 1</option>
+                                    <option value="Otras">Otras</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">País</label>
+                                <input type="text" class="form-control" id="productPais" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Precio ($)</label>
+                                <input type="number" step="0.01" class="form-control" id="productPrecio" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">URL de Imagen</label>
+                                <input type="url" class="form-control" id="productImagen" required>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="productDestacado">
+                                    <label class="form-check-label" for="productDestacado">
+                                        Producto Destacado
+                                    </label>
                                 </div>
-                                
-                                <div class="mb-3">
-                                    <label class="form-label">Equipo</label>
-                                    <input type="text" class="form-control" id="productTeam" placeholder="Ej: Real Madrid" required>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Liga</label>
-                                            <select class="form-control" id="productLiga" required>
-                                                <option value="">Seleccionar...</option>
-                                                <option value="La Liga">La Liga</option>
-                                                <option value="Premier League">Premier League</option>
-                                                <option value="Serie A">Serie A</option>
-                                                <option value="Bundesliga">Bundesliga</option>
-                                                <option value="Ligue 1">Ligue 1</option>
-                                                <option value="Eredivisie">Eredivisie</option>
-                                                <option value="Liga Portugal">Liga Portugal</option>
-                                                <option value="Otra">Otra</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">País</label>
-                                            <input type="text" class="form-control" id="productPais" placeholder="Ej: España" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label class="form-label">Precio ($)</label>
-                                    <input type="number" step="0.01" class="form-control" id="productPrecio" placeholder="89.99" required>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label class="form-label">URL de Imagen</label>
-                                    <input type="url" class="form-control" id="productImagen" placeholder="https://..." required>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="productDestacado">
-                                        <label class="form-check-label" for="productDestacado" style="color: var(--text);">
-                                            Producto Destacado
-                                        </label>
-                                    </div>
-                                </div>
-                                
-                                <button type="submit" class="btn btn-hero btn-primary w-100">
-                                    <i class="bi bi-plus-lg"></i>
-                                    <span>AÑADIR PRODUCTO</span>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-7">
-                        <div class="card" style="background: var(--dark); border: 2px solid rgba(0, 255, 136, 0.2); border-radius: 15px; padding: 25px;">
-                            <h3 style="color: var(--primary); font-family: 'Bebas Neue', cursive; font-size: 1.8rem; margin-bottom: 20px;">
-                                <i class="bi bi-box-seam-fill"></i> PRODUCTOS (<span id="productCount">0</span>)
-                            </h3>
-                            
-                            <div id="productsList" style="max-height: 600px; overflow-y: auto;">
-                                <!-- Los productos se cargan aquí -->
                             </div>
                         </div>
-                    </div>
+                        <div class="mt-4">
+                            <button type="submit" class="btn-add w-100">
+                                <i class="bi bi-check-circle"></i> GUARDAR
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/admin.js"></script>
-    
+    <script>
+        let productos = [];
+        let editingId = null;
+
+        // Login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === 'admin' && password === 'admin123') {
+                // NO guardar en localStorage - forzar login cada vez
+                showAdmin();
+            } else {
+                alert('❌ Usuario o contraseña incorrectos');
+            }
+        });
+
+        function showAdmin() {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('adminContainer').style.display = 'block';
+            loadProductos();
+        }
+
+        function logout() {
+            // Recargar página para mostrar login
+            location.reload();
+        }
+
+        // NO HAY AUTO-LOGIN - Siempre mostrar pantalla de login
+
+        // Load productos
+        function loadProductos() {
+            const saved = localStorage.getItem('admin_productos');
+            if (saved) {
+                productos = JSON.parse(saved);
+            } else {
+                // USAR LOS MISMOS PRODUCTOS DE LA TIENDA PRINCIPAL
+                productos = [
+                    {id: 1, nombre: "Real Madrid 24/25 Local", equipo: "Real Madrid", liga: "La Liga", pais: "España", precio: 89.99, imagen: "https://images.unsplash.com/photo-1522778526097-ce0a22ceb253?w=400&h=400&fit=crop", destacado: true, enOferta: false},
+                    {id: 2, nombre: "Barcelona 24/25 Local", equipo: "FC Barcelona", liga: "La Liga", pais: "España", precio: 89.99, imagen: "https://images.unsplash.com/photo-1551958219-acbc608c6377?w=400&h=400&fit=crop", destacado: true, enOferta: false},
+                    {id: 3, nombre: "Atlético Madrid Local", equipo: "Atlético Madrid", liga: "La Liga", pais: "España", precio: 84.99, imagen: "https://images.unsplash.com/photo-1614632537239-e3a5fd7c1f4e?w=400&h=400&fit=crop", destacado: false, enOferta: false},
+                    {id: 4, nombre: "Manchester City Local", equipo: "Manchester City", liga: "Premier League", pais: "Inglaterra", precio: 88.99, imagen: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&h=400&fit=crop", destacado: true, enOferta: false},
+                    {id: 5, nombre: "Liverpool 24/25 Local", equipo: "Liverpool FC", liga: "Premier League", pais: "Inglaterra", precio: 88.99, imagen: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=400&fit=crop", destacado: true, enOferta: false},
+                    {id: 6, nombre: "Manchester United Local", equipo: "Manchester United", liga: "Premier League", pais: "Inglaterra", precio: 85.99, imagen: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400&h=400&fit=crop", destacado: true, enOferta: false},
+                    {id: 7, nombre: "Chelsea 24/25 Local", equipo: "Chelsea FC", liga: "Premier League", pais: "Inglaterra", precio: 84.99, imagen: "https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?w=400&h=400&fit=crop", destacado: false, enOferta: false},
+                    {id: 8, nombre: "Arsenal 24/25 Local", equipo: "Arsenal FC", liga: "Premier League", pais: "Inglaterra", precio: 87.99, imagen: "https://images.unsplash.com/photo-1511556820780-d912e42b4980?w=400&h=400&fit=crop", destacado: true, enOferta: false},
+                    {id: 9, nombre: "Juventus 24/25 Local", equipo: "Juventus", liga: "Serie A", pais: "Italia", precio: 86.99, imagen: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400&h=400&fit=crop", destacado: true, enOferta: false},
+                    {id: 10, nombre: "AC Milan Local", equipo: "AC Milan", liga: "Serie A", pais: "Italia", precio: 85.99, imagen: "https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=400&h=400&fit=crop", destacado: true, enOferta: false},
+                    {id: 11, nombre: "Inter Milan Local", equipo: "Inter Milan", liga: "Serie A", pais: "Italia", precio: 85.99, imagen: "https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=400&h=400&fit=crop", destacado: true, enOferta: false},
+                    {id: 12, nombre: "Bayern Munich Local", equipo: "Bayern Munich", liga: "Bundesliga", pais: "Alemania", precio: 87.99, imagen: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=400&fit=crop", destacado: true, enOferta: false},
+                    {id: 13, nombre: "Borussia Dortmund Local", equipo: "Borussia Dortmund", liga: "Bundesliga", pais: "Alemania", precio: 84.99, imagen: "https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=400&h=400&fit=crop", destacado: true, enOferta: false},
+                    {id: 14, nombre: "PSG 24/25 Local", equipo: "Paris Saint-Germain", liga: "Ligue 1", pais: "Francia", precio: 92.99, imagen: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=400&h=400&fit=crop", destacado: true, enOferta: false},
+                    {id: 15, nombre: "Napoli Local", equipo: "SSC Napoli", liga: "Serie A", pais: "Italia", precio: 83.99, imagen: "https://images.unsplash.com/photo-1517466787929-bc90951d0974?w=400&h=400&fit=crop", destacado: false, enOferta: false},
+                    {id: 16, nombre: "Tottenham Local", equipo: "Tottenham", liga: "Premier League", pais: "Inglaterra", precio: 83.99, imagen: "https://images.unsplash.com/photo-1577212017308-2f0cbf5a8a8c?w=400&h=400&fit=crop", destacado: false, enOferta: false},
+                    {id: 17, nombre: "RB Leipzig Local", equipo: "RB Leipzig", liga: "Bundesliga", pais: "Alemania", precio: 79.99, imagen: "https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?w=400&h=400&fit=crop", destacado: false, enOferta: false},
+                    {id: 18, nombre: "Marseille Local", equipo: "Olympique Marseille", liga: "Ligue 1", pais: "Francia", precio: 79.99, imagen: "https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=400&h=400&fit=crop", destacado: false, enOferta: false},
+                    {id: 19, nombre: "AS Roma Local", equipo: "AS Roma", liga: "Serie A", pais: "Italia", precio: 82.99, imagen: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=400&h=400&fit=crop", destacado: false, enOferta: false},
+                    {id: 20, nombre: "Valencia CF Local", equipo: "Valencia CF", liga: "La Liga", pais: "España", precio: 79.99, imagen: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400&h=400&fit=crop", destacado: false, enOferta: false}
+                ];
+                // Guardar por primera vez
+                saveProductos();
+            }
+            renderProductos();
+        }
+
+        function saveProductos() {
+            localStorage.setItem('admin_productos', JSON.stringify(productos));
+        }
+
+        function renderProductos() {
+            const tbody = document.getElementById('productosTableBody');
+            tbody.innerHTML = '';
+            
+            productos.forEach(producto => {
+                const enOferta = producto.enOferta || false;
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${producto.id}</td>
+                        <td><img src="${producto.imagen}" width="50" height="50" style="object-fit: cover; border-radius: 8px;"></td>
+                        <td>${producto.nombre}</td>
+                        <td>${producto.equipo}</td>
+                        <td>${producto.liga}</td>
+                        <td>$${producto.precio.toFixed(2)}</td>
+                        <td>
+                            <button class="btn ${enOferta ? 'btn-delete' : 'btn-add'}" 
+                                    onclick="toggleOferta(${producto.id})"
+                                    style="padding: 5px 15px; font-size: 0.85rem;">
+                                ${enOferta ? '🔥 EN OFERTA' : '➕ Añadir Oferta'}
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn-edit me-2" onclick="editProduct(${producto.id})">
+                                <i class="bi bi-pencil"></i> Editar
+                            </button>
+                            <button class="btn-delete" onclick="deleteProduct(${producto.id})">
+                                <i class="bi bi-trash"></i> Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            document.getElementById('totalProductos').textContent = productos.length;
+        }
+
+        // Add
+        function openAddModal() {
+            editingId = null;
+            document.getElementById('modalTitle').textContent = 'AÑADIR PRODUCTO';
+            document.getElementById('productForm').reset();
+            document.getElementById('productId').value = '';
+            new bootstrap.Modal(document.getElementById('productModal')).show();
+        }
+
+        // Edit
+        function editProduct(id) {
+            const producto = productos.find(p => p.id === id);
+            if (!producto) return;
+            
+            editingId = id;
+            document.getElementById('modalTitle').textContent = 'EDITAR PRODUCTO';
+            document.getElementById('productId').value = producto.id;
+            document.getElementById('productNombre').value = producto.nombre;
+            document.getElementById('productEquipo').value = producto.equipo;
+            document.getElementById('productLiga').value = producto.liga;
+            document.getElementById('productPais').value = producto.pais;
+            document.getElementById('productPrecio').value = producto.precio;
+            document.getElementById('productImagen').value = producto.imagen;
+            document.getElementById('productDestacado').checked = producto.destacado || false;
+            
+            new bootstrap.Modal(document.getElementById('productModal')).show();
+        }
+
+        // Delete
+        function deleteProduct(id) {
+            if (confirm('¿Eliminar este producto?')) {
+                productos = productos.filter(p => p.id !== id);
+                saveProductos();
+                renderProductos();
+                alert('✅ Producto eliminado');
+            }
+        }
+
+        // Save
+        document.getElementById('productForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const producto = {
+                id: editingId || (Math.max(...productos.map(p => p.id), 0) + 1),
+                nombre: document.getElementById('productNombre').value,
+                equipo: document.getElementById('productEquipo').value,
+                liga: document.getElementById('productLiga').value,
+                pais: document.getElementById('productPais').value,
+                precio: parseFloat(document.getElementById('productPrecio').value),
+                imagen: document.getElementById('productImagen').value,
+                destacado: document.getElementById('productDestacado').checked,
+                enOferta: false
+            };
+            
+            if (editingId) {
+                const index = productos.findIndex(p => p.id === editingId);
+                producto.enOferta = productos[index].enOferta || false;
+                productos[index] = producto;
+                alert('✅ Producto actualizado');
+            } else {
+                productos.push(producto);
+                alert('✅ Producto añadido');
+            }
+            
+            saveProductos();
+            renderProductos();
+            bootstrap.Modal.getInstance(document.getElementById('productModal')).hide();
+        });
+
+        // Toggle Oferta Flash
+        function toggleOferta(id) {
+            const producto = productos.find(p => p.id === id);
+            if (producto) {
+                producto.enOferta = !producto.enOferta;
+                saveProductos();
+                renderProductos();
+                if (producto.enOferta) {
+                    alert('🔥 ¡Producto añadido a Ofertas Flash!');
+                } else {
+                    alert('❌ Producto removido de Ofertas Flash');
+                }
+            }
+        }
+    </script>
+
 </body>
 </html>
